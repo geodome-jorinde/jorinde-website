@@ -1,0 +1,58 @@
+---
+import VariantB from "../layouts/VariantB.astro";
+import BrandSeal from "../components/BrandSeal.astro";
+---
+<VariantB title="Logo Preview — GardenGeoDome">
+	<header class="page-header">
+		<div class="kicker">Logo</div>
+		<h1>Brand <strong>Seal.</strong></h1>
+		<p class="lede">Preview-Seite für das neue Logo. Größen-Variations zum Beurteilen — danach entscheiden wir, wo es eingesetzt wird (Hero, Footer, Über-Seite, Print).</p>
+	</header>
+
+	<section class="lg-grid">
+		<figure>
+			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={320} /></div>
+			<figcaption>320 px · primärer Einsatz (Hero, Über-Seite)</figcaption>
+		</figure>
+		<figure>
+			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={200} /></div>
+			<figcaption>200 px · sekundärer Einsatz (Sektions-Akzent)</figcaption>
+		</figure>
+		<figure>
+			<div class="lg-frame" style="color: var(--ink); background: var(--surface);"><BrandSeal size={140} /></div>
+			<figcaption>140 px · klein, Schwarz auf hellem Grund</figcaption>
+		</figure>
+		<figure>
+			<div class="lg-frame dark" style="color: var(--bg); background: var(--green-deep);"><BrandSeal size={200} /></div>
+			<figcaption>200 px · Reverse (helle Marke auf Wald-Grün)</figcaption>
+		</figure>
+	</section>
+
+	<style>
+		.lg-grid {
+			padding: 3rem 3rem 6rem;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+			gap: 3rem 2rem;
+			border-top: 1px solid var(--line);
+		}
+		.lg-grid figure {
+			display: flex; flex-direction: column; align-items: center; gap: 1rem;
+		}
+		.lg-frame {
+			width: 100%; min-height: 380px;
+			display: flex; align-items: center; justify-content: center;
+			padding: 2rem;
+			border: 1px solid var(--line);
+		}
+		.lg-frame.dark { border-color: var(--green-deep); }
+		.lg-grid figcaption {
+			font-size: 0.85rem; color: var(--muted);
+			letter-spacing: 0.02em;
+			text-align: center;
+		}
+		@media (max-width: 760px) {
+			.lg-grid { padding: 2rem 1.5rem; }
+		}
+	</style>
+</VariantB>
