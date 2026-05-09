@@ -1,5 +1,6 @@
 ---
 import VariantB from "../layouts/VariantB.astro";
+import BrandSeal from "../components/BrandSeal.astro";
 const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const workshops = [
@@ -29,7 +30,9 @@ const workshops = [
 <VariantB title="GardenGeoDome — Geodome-Workshops in Freiburg" activeNav={null}>
 	<header class="hero">
 		<div class="hero-copy">
-			<div class="kicker">Workshops · Freiburg</div>
+			<div class="hero-seal" style="color: var(--green-deep);">
+				<BrandSeal size={150} variant="fine" font="fraunces" flora={true} />
+			</div>
 			<h1>Die Faszination von <strong>Geodomen erleben.</strong></h1>
 			<p class="lede">Mit handwerklicher Erfahrung und künstlerischem Blick lade ich ein, Geodome praktisch zu erleben. In meinen Workshops bauen wir gemeinsam und in wenigen Stunden eine stabile Kuppel — Grundlage für eure eigenen Ideen und Projekte.</p>
 			<div class="cta-row">
@@ -80,10 +83,11 @@ const workshops = [
 	<style>
 		.hero {
 			display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-			padding: 5rem 3rem 6rem;
+			padding: 4rem 3rem 6rem;
 			border-bottom: 1px solid var(--line);
 			align-items: center;
 		}
+		.hero-seal { margin-bottom: 1.75rem; }
 		.hero h1 {
 			font-size: clamp(2.5rem, 5.5vw, 4.5rem);
 			font-weight: 300; letter-spacing: -0.035em;
