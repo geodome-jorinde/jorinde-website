@@ -16,16 +16,17 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 				<span class="bk-step-num">01</span>
 				<h2>Welcher Workshop?</h2>
 			</div>
+			<p class="bk-options-tip"><strong>Tipp:</strong> Je mehr Teilnehmer:innen, desto stimmiger das Erlebnis — Geodome-Bauen lebt von vielen Händen und Kooperation.</p>
 			<div class="bk-options">
 				<label class="bk-option">
-					<input type="radio" name="workshop" value="2-Stunden-Workshop (90 EUR)" checked />
+					<input type="radio" name="workshop" value="2-Stunden-Workshop (140 EUR)" checked />
 					<div class="bk-opt-card">
 						<div class="bk-opt-tag">2-Stunden-Workshop</div>
-						<div class="bk-opt-price"><strong>90 €</strong><span>zzgl. Anreise außerhalb Freiburgs (&gt;30 km)</span></div>
+						<div class="bk-opt-price"><strong>140 €</strong><span>zzgl. Anreise außerhalb Freiburgs (&gt;30 km)</span></div>
 						<p class="bk-opt-lead">Kompakte Einführung — du lernst das Prinzip der geodätischen Triangulation kennen, mit den eigenen Händen.</p>
 						<ul>
 							<li>Material wird gestellt</li>
-							<li>2–10 Personen</li>
+							<li>2–10 Personen — mehr Hände, intensiveres Erlebnis</li>
 							<li>Ca. 2 Stunden</li>
 							<li>Ideal als Schnupper-Erfahrung, Team-Event oder Schul-AG</li>
 						</ul>
@@ -33,16 +34,31 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 				</label>
 
 				<label class="bk-option">
-					<input type="radio" name="workshop" value="Ganztaegiger Workshop (380 EUR)" />
+					<input type="radio" name="workshop" value="Ganztaegiger Workshop (480 EUR)" />
 					<div class="bk-opt-card">
 						<div class="bk-opt-tag">Ganztägiger Workshop</div>
-						<div class="bk-opt-price"><strong>380 €</strong><span>zzgl. Material</span></div>
+						<div class="bk-opt-price"><strong>480 €</strong><span>zzgl. Material</span></div>
 						<p class="bk-opt-lead">Volle Erfahrung — gemeinsam bauen wir einen vollständigen Geodome, vom ersten Strich bis zur fertigen Kuppel.</p>
 						<ul>
 							<li>Material in Absprache: <em>hochwertig neu</em>, oder <em>Recycling- / Naturmaterialien</em></li>
-							<li>Ein ganzer Tag (~6–8 Stunden)</li>
+							<li>Ein ganzer Tag (~6–8 Stunden) — größere Gruppen schaffen mehr</li>
 							<li>Ihr nehmt eine fertige Konstruktion mit</li>
 							<li>Nachhaltig, sinnstiftend, verbindend</li>
+						</ul>
+					</div>
+				</label>
+
+				<label class="bk-option bk-option-school">
+					<input type="radio" name="workshop" value="Schule / Paedagogische Einrichtung (Preis auf Anfrage)" />
+					<div class="bk-opt-card">
+						<div class="bk-opt-tag">Schule · Pädagogische Einrichtung</div>
+						<div class="bk-opt-price"><strong>auf Anfrage</strong><span>angepasst an Kontext, Klassengröße, Budget</span></div>
+						<p class="bk-opt-lead">Geodome-Bau als Lernerfahrung — für Schulen, Kindergärten, Jugendgruppen, Hochschulen. Format und Preis stimmen wir individuell ab.</p>
+						<ul>
+							<li>Format flexibel: 2 h, halber Tag, Tag oder Projektwoche</li>
+							<li>Klassen-/Gruppengröße offen — je größer, desto besser</li>
+							<li>Material auf Schul- oder Trägerbudget abgestimmt</li>
+							<li>Verbindet Mathematik, Statik, Handwerk, Teamarbeit</li>
 						</ul>
 					</div>
 				</label>
@@ -127,13 +143,17 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 	</form>
 
 	<script is:inline>
-		// Pre-select workshop type from URL: /buchung?type=2h or ?type=ganztaegig
+		// Pre-select workshop type from URL: /buchung?type=2h | ganztaegig | schule
 		(function () {
 			const params = new URLSearchParams(window.location.search);
 			const t = params.get("type");
-			if (t === "ganztaegig" || t === "2h") {
-				const value = t === "ganztaegig" ? "Ganztaegiger Workshop (380 EUR)" : "2-Stunden-Workshop (90 EUR)";
-				const radio = document.querySelector('input[name="workshop"][value="' + value + '"]');
+			const map = {
+				"2h": "2-Stunden-Workshop (140 EUR)",
+				"ganztaegig": "Ganztaegiger Workshop (480 EUR)",
+				"schule": "Schule / Paedagogische Einrichtung (Preis auf Anfrage)",
+			};
+			if (t && map[t]) {
+				const radio = document.querySelector('input[name="workshop"][value="' + map[t] + '"]');
 				if (radio) radio.checked = true;
 			}
 		})();
@@ -176,12 +196,33 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			font-size: 0.95rem;
 		}
 
+		.bk-options-tip {
+			margin: 0 0 1.5rem;
+			padding: 0.85rem 1.1rem;
+			border-left: 3px solid var(--green-deep);
+			background: var(--surface);
+			color: var(--ink);
+			font-size: 0.92rem;
+			line-height: 1.5;
+			max-width: 60em;
+		}
+		.bk-options-tip strong { color: var(--green-deep); font-weight: 700; }
+
 		/* Workshop options */
 		.bk-options {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: repeat(3, 1fr);
 			gap: 1.25rem;
 			margin-top: 0.5rem;
+		}
+		.bk-option-school .bk-opt-card {
+			border-style: dashed;
+			background: var(--surface);
+		}
+		@media (max-width: 1100px) {
+			.bk-options { grid-template-columns: 1fr 1fr; }
+			.bk-option-school { grid-column: 1 / -1; }
+			.bk-option-school .bk-opt-card { border-style: dashed; }
 		}
 		.bk-option {
 			cursor: pointer;
