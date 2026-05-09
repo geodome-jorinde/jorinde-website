@@ -136,6 +136,15 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			</div>
 		</section>
 
+		<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="bk-hp" />
+
+		<div class="bk-consent-block">
+			<label class="bk-consent">
+				<input type="checkbox" name="consent" required />
+				<span>Ich willige ein, dass meine angegebenen Daten (Name, E-Mail, Telefon, Anfrage-Details) zur Bearbeitung meiner Workshop-Anfrage verarbeitet werden. Die Daten werden nicht an Dritte weitergegeben und spätestens 6 Monate nach Abschluss der Anfrage gelöscht. Ich kann meine Einwilligung jederzeit per E-Mail an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a> widerrufen. Mehr in der <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>.</span>
+			</label>
+		</div>
+
 		<div class="bk-submit">
 			<button type="submit" class="btn primary bk-submit-btn">Anfrage absenden</button>
 			<p class="bk-form-hint">Öffnet dein E-Mail-Programm. Es ist eine <em>Anfrage</em> — die Buchung wird erst nach unserer Rücksprache verbindlich. Falls du keinen E-Mail-Client hast, schreib direkt an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a>.</p>
@@ -330,11 +339,42 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			min-height: 9rem;
 		}
 
-		/* Submit */
-		.bk-submit {
-			padding: 2.5rem 0 0;
+		/* Honeypot — visually hidden, accessible to bots that fill all fields */
+		.bk-hp {
+			position: absolute !important;
+			left: -10000px !important;
+			width: 1px !important;
+			height: 1px !important;
+			opacity: 0 !important;
+			pointer-events: none;
+		}
+
+		/* Consent block */
+		.bk-consent-block {
+			padding: 2rem 0 0;
 			border-top: 1px solid rgba(26,26,26,0.1);
 			margin-top: 1.5rem;
+		}
+		.bk-consent {
+			display: flex; align-items: flex-start; gap: 0.75rem;
+			cursor: pointer;
+			max-width: 60em;
+		}
+		.bk-consent input[type="checkbox"] {
+			margin-top: 0.3rem;
+			accent-color: var(--green-deep);
+			flex-shrink: 0;
+			width: 1.05rem; height: 1.05rem;
+		}
+		.bk-consent span {
+			font-size: 0.88rem; line-height: 1.55;
+			color: var(--muted);
+		}
+		.bk-consent a { color: var(--green-deep); border-bottom: 1px solid currentColor; }
+
+		/* Submit */
+		.bk-submit {
+			padding: 2rem 0 0;
 		}
 		.bk-submit-btn {
 			font-family: inherit;

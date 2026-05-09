@@ -1,5 +1,6 @@
 ---
 import VariantB from "../layouts/VariantB.astro";
+const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <VariantB title="Kontakt — GardenGeoDome" activeNav="kontakt">
 	<header class="page-header">
@@ -10,6 +11,7 @@ import VariantB from "../layouts/VariantB.astro";
 
 	<section class="kt-grid">
 		<form class="kt-form" action="mailto:info@gardengeodome.com" method="post" enctype="text/plain">
+			<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="kt-hp" />
 			<div class="kt-row">
 				<label for="name">Name</label>
 				<input id="name" name="name" type="text" required autocomplete="name" />
@@ -26,6 +28,10 @@ import VariantB from "../layouts/VariantB.astro";
 				<label for="msg">Nachricht</label>
 				<textarea id="msg" name="msg" rows="6" required placeholder="Was schwebt dir vor?"></textarea>
 			</div>
+			<label class="kt-consent">
+				<input type="checkbox" name="consent" required />
+				<span>Ich willige ein, dass meine Angaben (Name, E-Mail, Nachricht) zur Bearbeitung meiner Anfrage verarbeitet werden. Die Daten werden nicht an Dritte weitergegeben und spätestens 6 Monate nach Abschluss gelöscht. Mehr in der <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>.</span>
+			</label>
 			<div class="kt-actions">
 				<button type="submit" class="btn primary">Anfrage senden</button>
 				<p class="kt-hint">Öffnet dein E-Mail-Programm. Du kannst auch direkt schreiben an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a>.</p>
@@ -79,6 +85,26 @@ import VariantB from "../layouts/VariantB.astro";
 		.kt-actions button { font-family: inherit; }
 		.kt-hint { font-size: 0.85rem; color: var(--muted); max-width: 28em; }
 		.kt-hint a { color: var(--green-deep); border-bottom: 1px solid currentColor; }
+		/* Consent + honeypot */
+		.kt-consent {
+			display: flex; align-items: flex-start; gap: 0.75rem;
+			cursor: pointer; max-width: 38em;
+			margin-top: 0.25rem;
+		}
+		.kt-consent input[type="checkbox"] {
+			margin-top: 0.25rem;
+			accent-color: var(--green-deep);
+			flex-shrink: 0;
+			width: 1.05rem; height: 1.05rem;
+		}
+		.kt-consent span { font-size: 0.85rem; line-height: 1.55; color: var(--muted); }
+		.kt-consent a { color: var(--green-deep); border-bottom: 1px solid currentColor; }
+		.kt-hp {
+			position: absolute !important;
+			left: -10000px !important;
+			width: 1px !important; height: 1px !important;
+			opacity: 0 !important; pointer-events: none;
+		}
 
 		.kt-side { display: flex; flex-direction: column; gap: 1.5rem; }
 		.kt-card { background: var(--surface); border: 1px solid var(--line); padding: 2rem; }
