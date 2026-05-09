@@ -124,20 +124,22 @@ const f = fonts[font];
 
 	<!-- Optional wildflower decoration at the dome's base — breaks the technical character.
 	     Plant native viewBox 993.825 × 1469.474 (portrait). Scaled small (0.18) and
-	     positioned so the flowers (top of plant canvas) sit at the dome's base level,
-	     stems trail downward toward the inner ring's bottom. -->
+	     positioned to peek out from the dome's mid-section, slightly offset right
+	     for an organic, asymmetric placement. -->
 	{flora && (
 		<g style="opacity: 0.85;">
-			<BrandFlora transform="translate(510 740) scale(0.18)" />
+			<BrandFlora transform="translate(546 608) scale(0.18)" />
 		</g>
 	)}
 
-	<!-- Curved text -->
+	<!-- Curved text — dominant-baseline="middle" puts the visual middle of each
+	     character on the path, so top and bottom texts are symmetrically centered
+	     between the inner and outer rings (independent of cap height). -->
 	<g class="seal-text" font-family={f.family} font-weight={f.weight} font-style={f.style} style={f.fvs ? `font-variation-settings: ${f.fvs};` : undefined} fill="currentColor" stroke="none">
-		<text font-size={f.topSize} letter-spacing={f.topSpacing}>
+		<text font-size={f.topSize} letter-spacing={f.topSpacing} dominant-baseline="middle">
 			<textPath href={`#top-${id}`} startOffset="50%" text-anchor="middle">GARDEN</textPath>
 		</text>
-		<text font-size={f.botSize} letter-spacing={f.botSpacing}>
+		<text font-size={f.botSize} letter-spacing={f.botSpacing} dominant-baseline="middle">
 			<textPath href={`#bot-${id}`} startOffset="50%" text-anchor="middle">GEODESIC DOME</textPath>
 		</text>
 	</g>
