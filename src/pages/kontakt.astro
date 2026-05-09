@@ -10,7 +10,7 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 	</header>
 
 	<section class="kt-grid">
-		<form class="kt-form" action="mailto:info@gardengeodome.com" method="post" enctype="text/plain">
+		<form id="kontakt-form" class="kt-form">
 			<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="kt-hp" />
 			<div class="kt-row">
 				<label for="name">Name</label>
@@ -37,6 +37,36 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 				<p class="kt-hint">Öffnet dein E-Mail-Programm. Du kannst auch direkt schreiben an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a>.</p>
 			</div>
 		</form>
+
+		<script is:inline>
+			(function () {
+				const form = document.getElementById("kontakt-form");
+				if (!form) return;
+				form.addEventListener("submit", function (e) {
+					e.preventDefault();
+					if (!form.checkValidity()) { form.reportValidity(); return; }
+					if (form._gotcha && form._gotcha.value) return;
+					const data = new FormData(form);
+					const get = (k) => (data.get(k) || "").toString().trim();
+					const lines = [
+						"Anfrage von " + get("name"),
+						"",
+						"Name:    " + get("name"),
+						"E-Mail:  " + get("email"),
+						"Anlass:  " + (get("kontext") || "—"),
+						"",
+						"Nachricht:",
+						get("msg"),
+						"",
+						"---",
+						"Einwilligung zur Datenverarbeitung erteilt.",
+					].join("\n");
+					const subject = encodeURIComponent("Anfrage von " + get("name"));
+					const body = encodeURIComponent(lines);
+					window.location.href = "mailto:info@gardengeodome.com?subject=" + subject + "&body=" + body;
+				});
+			})();
+		</script>
 
 		<aside class="kt-side">
 			<div class="kt-card">

@@ -273,7 +273,7 @@ const nav = [
 				<div class="foot-newsletter">
 					<h3>Bleib in Kontakt.</h3>
 					<p>Erfahre als erstes von neuen Workshop-Terminen, Projekten und Wissen rund um den Geodome-Bau.</p>
-					<form class="newsletter-form" action="mailto:info@gardengeodome.com?subject=Newsletter-Anmeldung" method="post" enctype="text/plain">
+					<form id="newsletter-form" class="newsletter-form">
 						<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field" />
 						<div class="newsletter-row">
 							<input type="email" name="email" placeholder="deine@email.de" required aria-label="E-Mail-Adresse" autocomplete="email" />
@@ -284,6 +284,23 @@ const nav = [
 							<span>Ich willige ein, dass meine E-Mail-Adresse zum Versand des Newsletters verwendet wird. Abmelden jederzeit per E-Mail. <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>.</span>
 						</label>
 					</form>
+					<script is:inline>
+						(function () {
+							const form = document.getElementById("newsletter-form");
+							if (!form) return;
+							form.addEventListener("submit", function (e) {
+								e.preventDefault();
+								if (!form.checkValidity()) { form.reportValidity(); return; }
+								if (form._gotcha && form._gotcha.value) return; // honeypot
+								const email = form.email.value;
+								const body = encodeURIComponent(
+									"Newsletter-Anmeldung\n\nE-Mail: " + email +
+									"\n\n---\nEinwilligung zur Datenverarbeitung erteilt."
+								);
+								window.location.href = "mailto:info@gardengeodome.com?subject=Newsletter-Anmeldung&body=" + body;
+							});
+						})();
+					</script>
 				</div>
 			</div>
 			<div class="foot-bottom">

@@ -9,7 +9,7 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 		<p class="lede">In drei Schritten zur Anfrage: Workshop wählen, Termin vorschlagen, absenden. Ich melde mich innerhalb weniger Tage zurück und wir besprechen die Details — danach wird es verbindlich.</p>
 	</header>
 
-	<form class="bk-form" action="mailto:info@gardengeodome.com?subject=Workshop-Buchungsanfrage" method="post" enctype="text/plain">
+	<form id="buchung-form" class="bk-form">
 		<!-- Step 1: Workshop -->
 		<section class="bk-step">
 			<div class="bk-step-head">
@@ -165,6 +165,43 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 				const radio = document.querySelector('input[name="workshop"][value="' + map[t] + '"]');
 				if (radio) radio.checked = true;
 			}
+		})();
+
+		// Submit handler — builds mailto: URL programmatically so Chrome doesn't
+		// flag the form as insecure (which it does for action="mailto:...").
+		(function () {
+			const form = document.getElementById("buchung-form");
+			if (!form) return;
+			form.addEventListener("submit", function (e) {
+				e.preventDefault();
+				if (!form.checkValidity()) { form.reportValidity(); return; }
+				if (form._gotcha && form._gotcha.value) return;
+				const data = new FormData(form);
+				const get = (k) => (data.get(k) || "").toString().trim();
+				const lines = [
+					"Workshop-Buchungsanfrage von " + get("name"),
+					"",
+					"Workshop:    " + get("workshop"),
+					"Datum:       " + get("datum"),
+					"Alternative: " + (get("alternativ") || "—"),
+					"Personen:    " + get("personen"),
+					"Ort / PLZ:   " + get("ort"),
+					"",
+					"Kontakt:",
+					"  Name:    " + get("name"),
+					"  E-Mail:  " + get("email"),
+					"  Telefon: " + (get("telefon") || "—"),
+					"",
+					"Nachricht:",
+					(get("msg") || "—"),
+					"",
+					"---",
+					"Einwilligung zur Datenverarbeitung erteilt.",
+				].join("\n");
+				const subject = encodeURIComponent("Workshop-Buchungsanfrage von " + get("name"));
+				const body = encodeURIComponent(lines);
+				window.location.href = "mailto:info@gardengeodome.com?subject=" + subject + "&body=" + body;
+			});
 		})();
 	</script>
 
