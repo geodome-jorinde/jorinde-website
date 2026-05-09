@@ -2,17 +2,26 @@
 /**
  * Brand seal for GardenGeoDome.
  * Geodesic dome glyph by "the Noun Project" (noun-geodesic-dome-11999),
- * wrapped in concentric rings with curved "GARDEN" / "GEODESIC DOME" text.
+ * wrapped in optional concentric rings with curved "GARDEN" / "GEODESIC DOME" text.
  *
- * Color follows currentColor — wrap in any element with a color set
- * (e.g. style="color: var(--green-deep)").
+ * Stroke uses vector-effect="non-scaling-stroke" so lines stay 1.5 screen px
+ * at any render size — thin and consistent.
+ *
+ * variant:
+ *   "fine"   — thin double rings (default)
+ *   "single" — one thin outer ring
+ *   "open"   — no rings, just dome + curved text floating
+ *
+ * Color follows currentColor.
  */
 interface Props {
 	size?: number;
-	stroke?: number;
+	variant?: "fine" | "single" | "open";
 }
-const { size = 220, stroke = 6 } = Astro.props;
+const { size = 220, variant = "fine" } = Astro.props;
 const id = Math.random().toString(36).slice(2, 9);
+const showOuterRing = variant === "fine" || variant === "single";
+const showInnerRing = variant === "fine";
 ---
 <svg
 	xmlns="http://www.w3.org/2000/svg"
@@ -26,17 +35,20 @@ const id = Math.random().toString(36).slice(2, 9);
 	class="brandseal-svg"
 >
 	<defs>
-		<!-- Top arc (clockwise, upper half): "GARDEN" reads left-to-right upright. -->
-		<path id={`top-${id}`} d="M 80 600 A 520 520 0 0 1 1120 600" />
-		<!-- Bottom arc (counterclockwise, lower half): "GEODESIC DOME" reads left-to-right upright. -->
-		<path id={`bot-${id}`} d="M 80 600 A 520 520 0 0 0 1120 600" />
+		<!-- Top arc (clockwise, upper half): "GARDEN" reads upright. -->
+		<path id={`top-${id}`} d="M 75 600 A 525 525 0 0 1 1125 600" />
+		<!-- Bottom arc (counterclockwise, lower half): "GEODESIC DOME" reads upright. -->
+		<path id={`bot-${id}`} d="M 75 600 A 525 525 0 0 0 1125 600" />
 	</defs>
 
-	<!-- Outer + inner concentric rings -->
-	<circle cx="600" cy="600" r="572" fill="none" stroke="currentColor" stroke-width={stroke * 0.6} />
-	<circle cx="600" cy="600" r="468" fill="none" stroke="currentColor" stroke-width={stroke} />
+	{showOuterRing && (
+		<circle cx="600" cy="600" r="582" fill="none" stroke="currentColor" stroke-width="1.4" vector-effect="non-scaling-stroke" />
+	)}
+	{showInnerRing && (
+		<circle cx="600" cy="600" r="464" fill="none" stroke="currentColor" stroke-width="1.4" vector-effect="non-scaling-stroke" />
+	)}
 
-	<!-- Dome glyph — scaled and translated to sit centered inside inner ring -->
+	<!-- Dome glyph (filled silhouette, scaled and centered inside inner area) -->
 	<g transform="translate(210 239) scale(0.65)">
 		<path d="m560.03 970.11c-0.28906 0-0.57422-0.011719-0.875-0.058594l-264.18-38.305c-1.9805-0.28906-3.6836-1.5234-4.5703-3.3359-0.875-1.7773-0.80469-3.8867 0.16797-5.6406l122-215.76c1.0781-1.9062 3.0977-3.0859 5.2695-3.0859h0.011719c2.1836 0 4.1992 1.1992 5.2695 3.1094l142.18 254.09c1.1172 2.0039 1.0078 4.4766-0.30078 6.3711-1.1328 1.6562-3.0039 2.6172-4.9727 2.6172zm-254.55-49.07 243.29 35.281-130.93-234.01z" />
 		<path d="m560.03 970.11c-2.0508 0-3.9844-1.0312-5.1016-2.7734-1.2227-1.9062-1.2852-4.3438-0.14453-6.3008l140-240.16-277.04-4.8594h-0.023438c-0.023438 0-0.035156 0.023437-0.046875 0-0.011719 0.023437-0.023437 0-0.035156 0h-0.023438-0.011719c-0.26562 0-0.55078-0.046875-0.81641-0.097656l-217.97-37.441 102.62 244.93c0.89844 2.1836 0.48047 4.7031-1.1172 6.4219-1.5977 1.7539-4.0547 2.4102-6.3008 1.6797l-170.36-54.434c-0.16797-0.046875-0.34766-0.12109-0.50391-0.17969-0.81641-0.34766-1.5117-0.83984-2.1016-1.4414-49.055-50.109-49.055-52.652-49.055-55.594v-178.45c0-0.35938 0.035156-0.74219 0.10938-1.1406v-0.023437c0-0.023438 0-0.023438 0.011719-0.023438 0.011718-0.058594 0.023437-0.15625 0.046875-0.21484l39.312-168.37c0.43359-1.8359 1.6797-3.3594 3.3945-4.1289l64.535-29.242c0.97266-0.44531 1.9922-0.60156 3-0.51562l168.3 13.105c0.20312 0.011719 0.42187 0.035156 0.625 0.070312h0.011718c0.16797 0.023438 0.3125 0.058594 0.46875 0.097657l214.32 55.078 228.45-52.105c0.14453-0.023438 0.28906-0.058594 0.44531-0.085938 0.20312-0.035156 0.40625-0.058594 0.625-0.058594l210.7-12.098c1.8477-0.12109 3.625 0.63672 4.8477 2.0039 1.2227 1.3672 1.7656 3.2266 1.4531 5.0391l-38.891 228.52 146.06-25.441 33.973-32.039c1.7891-1.7031 4.4531-2.1367 6.6953-1.0781 2.2422 1.0312 3.6367 3.3359 3.4922 5.8086l-12.098 219.82c-0.17969 3.1211-2.7109 5.6055-5.832 5.7109-3.2031 0.085937-5.8203-2.207-6.2148-5.3047l-22.395-180.2-142.67 24.852 80.902 200.76c0.66016 1.6562 0.55078 3.5273-0.26562 5.1133-0.83984 1.5703-2.3398 2.6875-4.0781 3.0859l-206.65 44.344c-0.20313 0.035156-0.39453 0.058593-0.60156 0.085937h-0.035156-0.011719c-0.035156 0.023437-0.070312 0.023437-0.10938 0.023437l-283.33 27.238c-0.19141 0.015625-0.38281 0.015625-0.5625 0.015625zm145.36-243.38-134.18 230.17 261.86-25.176zm260.46-27.094-111.59 228.68 187.5-40.246zm-250.44 20.277 127.3 204.43 113.38-232.31zm-582.37 147.45 152.16 48.625-95.438-227.8zm-48.934-49.078c3.1914 4.2852 16.391 18.469 31.223 33.887l-31.223-151.45zm1.8594-168.54 40.727 197.61 54.602-172.46zm1043.1 10.094 14.484 116.46 7.5469-137.26zm-699.25 44.305 263.79 4.6094-127.73-186.04zm368.11-231.65-83.723 235.39 240.97-27.926zm-598.12 193.87 209.79 36.047-61.922-231.98zm376.32-150.11 127.4 185.54 83.074-233.54zm-217.29-50.941 61.68 231.06 135.31-180.43zm448.84-0.023438 155.1 204.67 36.719-215.69zm-720.71 172.19 95.734 25.246-6.1094-195.8zm101.22-187.15 6.3125 202.96 144.34-191.23zm-65.582 26.965-27.887 119.43 73.656-140.16z" />
@@ -49,11 +61,11 @@ const id = Math.random().toString(36).slice(2, 9);
 	</g>
 
 	<!-- Curved text -->
-	<g class="seal-text" font-family="Manrope Variable, Manrope, system-ui, sans-serif" font-weight="700" font-size="78" letter-spacing="22" fill="currentColor" stroke="none">
-		<text>
+	<g class="seal-text" font-family="Manrope Variable, Manrope, system-ui, sans-serif" font-weight="600" fill="currentColor" stroke="none">
+		<text font-size="60" letter-spacing="18">
 			<textPath href={`#top-${id}`} startOffset="50%" text-anchor="middle">GARDEN</textPath>
 		</text>
-		<text font-size="62" letter-spacing="14">
+		<text font-size="48" letter-spacing="8">
 			<textPath href={`#bot-${id}`} startOffset="50%" text-anchor="middle">GEODESIC DOME</textPath>
 		</text>
 	</g>
