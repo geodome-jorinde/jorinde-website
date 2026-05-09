@@ -4,62 +4,63 @@ import BrandSeal from "../components/BrandSeal.astro";
 ---
 <VariantB title="Logo Preview — GardenGeoDome">
 	<header class="page-header">
-		<div class="kicker">Logo · Iteration 2</div>
-		<h1>Brand <strong>Seal.</strong></h1>
-		<p class="lede">Drei Varianten — feine Doppellinie, einzelne Außenlinie, gar keine Linien. Linien nutzen <code>vector-effect:non-scaling-stroke</code>, bleiben also bei jeder Größe gleich dünn.</p>
+		<div class="kicker">Logo · Iteration 3</div>
+		<h1>Schrift-<strong>Varianten.</strong></h1>
+		<p class="lede">Innenring auf r=425 verkleinert (war 464), Dome bei scale 0.6 zentriert — viel mehr Platz zwischen den Ringen für größere Schrift. Außenring unverändert. Hier vier Schrift-Optionen, von clean bis verspielt.</p>
 	</header>
 
 	<section class="lg-grid">
 		<figure>
-			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={300} variant="fine" /></div>
+			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={340} variant="fine" font="manrope" /></div>
 			<figcaption>
-				<strong>1 — Fine</strong>
-				<span>Zwei dünne konzentrische Ringe, mehr Luft zur Schrift</span>
+				<strong>A — Manrope (clean sans)</strong>
+				<span>Ruhig, modern, geometrisch · matcht Body-Schrift der Site</span>
 			</figcaption>
 		</figure>
 		<figure>
-			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={300} variant="single" /></div>
+			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={340} variant="fine" font="fraunces" /></div>
 			<figcaption>
-				<strong>2 — Single</strong>
-				<span>Nur ein dünner Außenring, innerer weg</span>
+				<strong>B — Fraunces Soft (modern serif)</strong>
+				<span>Variabler Serif mit "SOFT 80" + "WONK 1" — leicht verspielt, organische Schwünge</span>
 			</figcaption>
 		</figure>
 		<figure>
-			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={300} variant="open" /></div>
+			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={340} variant="fine" font="fraunces-bold" /></div>
 			<figcaption>
-				<strong>3 — Open</strong>
-				<span>Keine Ringe, nur Dome + gebogene Schrift im Raum</span>
+				<strong>C — Fraunces Bold (kräftiger Serif)</strong>
+				<span>700, "SOFT 100" — mehr Präsenz, Display-Serifen-Charakter</span>
+			</figcaption>
+		</figure>
+		<figure>
+			<div class="lg-frame" style="color: var(--green-deep)"><BrandSeal size={340} variant="fine" font="caveat" /></div>
+			<figcaption>
+				<strong>D — Caveat (handgeschrieben)</strong>
+				<span>Maximal verspielt, persönlich · wirkt wie skizziert von Hand</span>
 			</figcaption>
 		</figure>
 	</section>
 
 	<section class="lg-row">
-		<h2>Größen-Test (Variante 1, Fine)</h2>
+		<h2>Größen-Test (Variante B, Fraunces Soft)</h2>
 		<div class="lg-sizes" style="color: var(--green-deep)">
-			<div><BrandSeal size={400} variant="fine" /><span>400</span></div>
-			<div><BrandSeal size={240} variant="fine" /><span>240</span></div>
-			<div><BrandSeal size={140} variant="fine" /><span>140</span></div>
-			<div><BrandSeal size={80} variant="fine" /><span>80 (Nav-Größe)</span></div>
+			<div><BrandSeal size={400} variant="fine" font="fraunces" /><span>400</span></div>
+			<div><BrandSeal size={240} variant="fine" font="fraunces" /><span>240</span></div>
+			<div><BrandSeal size={140} variant="fine" font="fraunces" /><span>140</span></div>
+			<div><BrandSeal size={80} variant="fine" font="fraunces" /><span>80 (Nav)</span></div>
 		</div>
 	</section>
 
 	<section class="lg-row dark">
-		<h2>Reverse — Marke auf Wald-Grün</h2>
+		<h2>Reverse — Marke auf Wald-Grün (alle 4 Schriften)</h2>
 		<div class="lg-sizes-dark">
-			<div style="color: var(--bg)"><BrandSeal size={240} variant="single" /><span>Single, reverse</span></div>
-			<div style="color: var(--bg)"><BrandSeal size={240} variant="open" /><span>Open, reverse</span></div>
+			<div style="color: var(--bg)"><BrandSeal size={200} variant="fine" font="manrope" /><span>Manrope</span></div>
+			<div style="color: var(--bg)"><BrandSeal size={200} variant="fine" font="fraunces" /><span>Fraunces Soft</span></div>
+			<div style="color: var(--bg)"><BrandSeal size={200} variant="fine" font="fraunces-bold" /><span>Fraunces Bold</span></div>
+			<div style="color: var(--bg)"><BrandSeal size={200} variant="fine" font="caveat" /><span>Caveat</span></div>
 		</div>
 	</section>
 
 	<style>
-		code {
-			font-family: ui-monospace, "SF Mono", Menlo, monospace;
-			font-size: 0.9em;
-			background: rgba(45,74,43,0.08);
-			padding: 0.05em 0.4em;
-			border-radius: 2px;
-		}
-
 		.lg-grid {
 			padding: 3rem 3rem 2rem;
 			display: grid;
@@ -71,7 +72,7 @@ import BrandSeal from "../components/BrandSeal.astro";
 			display: flex; flex-direction: column; align-items: center; gap: 1rem;
 		}
 		.lg-frame {
-			width: 100%; min-height: 380px;
+			width: 100%; min-height: 420px;
 			display: flex; align-items: center; justify-content: center;
 			padding: 2rem;
 			border: 1px solid var(--line);
@@ -79,7 +80,7 @@ import BrandSeal from "../components/BrandSeal.astro";
 		.lg-grid figcaption {
 			display: flex; flex-direction: column; gap: 0.25rem;
 			font-size: 0.9rem; color: var(--muted);
-			text-align: center;
+			text-align: center; max-width: 32em;
 		}
 		.lg-grid figcaption strong { color: var(--ink); font-weight: 700; letter-spacing: 0.04em; }
 
@@ -99,10 +100,10 @@ import BrandSeal from "../components/BrandSeal.astro";
 		.lg-row.dark { background: var(--green-deep); }
 		.lg-row.dark h2 { color: var(--bg); }
 		.lg-sizes-dark {
-			display: flex; flex-wrap: wrap; gap: 4rem; align-items: center;
+			display: flex; flex-wrap: wrap; gap: 3rem; align-items: center;
 		}
 		.lg-sizes-dark > div { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
-		.lg-sizes-dark span { font-size: 0.78rem; color: var(--bg); opacity: 0.75; letter-spacing: 0.1em; }
+		.lg-sizes-dark span { font-size: 0.78rem; color: var(--bg); opacity: 0.78; letter-spacing: 0.1em; }
 
 		@media (max-width: 760px) {
 			.lg-grid, .lg-row { padding: 2rem 1.5rem; }
