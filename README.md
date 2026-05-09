@@ -1,63 +1,62 @@
-# Astro Starter Kit: Blog
+# GardenGeoDome — Website
+
+Statische Website für **Jorinde Dehmel · GardenGeoDome** — Workshops zum
+Bauen geodätischer Kuppeln in Freiburg.
+
+Live: https://etzm.github.io/jorinde-website/
+
+## Stack
+
+- [Astro](https://astro.build) 6 (statische Generierung)
+- Manrope (Body) + Fraunces / Caveat (Logo) — alle self-hosted via `@fontsource`
+- Deploy: GitHub Actions → GitHub Pages
+
+## Entwicklung
 
 ```sh
-npm create astro@latest -- --template blog
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # dist/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Pages liegen unter `src/pages/`, geteiltes Layout in `src/layouts/VariantB.astro`.
+Bilder unter `public/images/preview/`.
 
-Features:
+## Deploy
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+Push auf `main` triggert `.github/workflows/deploy.yml` — Astro-Build via
+`withastro/action@v3`, Upload via `actions/deploy-pages@v4`.
 
-## 🚀 Project Structure
+`astro.config.mjs` setzt `site` und `base` für den GitHub-Pages-Subpfad.
+Beim Wechsel auf eine Custom Domain (z.B. `gardengeodome.com`):
+1. `base` aus `astro.config.mjs` entfernen
+2. `public/CNAME` mit der Domain anlegen
+3. DNS-CNAME-Record auf `etzm.github.io`
 
-Inside of your Astro project, you'll see the following folders and files:
+## Credits
 
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+### Logo
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Das Geodome-Glyph im Brand-Seal stammt von **Methadrone** vom
+[The Noun Project](https://thenounproject.com/creator/Methadrone/) —
+Icon "Geodesic Dome" (ID 11999), lizenziert unter Creative Commons BY 3.0.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Quelle: https://thenounproject.com/creator/Methadrone/
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+Implementierung: `src/components/BrandSeal.astro` — die Pfade des Original-SVG
+sind eingebettet, mit konzentrischen Ringen und gebogenem Text gerahmt.
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Schriften
 
-## 🧞 Commands
+- [Manrope](https://fonts.google.com/specimen/Manrope) — Open Font License
+- [Fraunces](https://fonts.google.com/specimen/Fraunces) — Open Font License
+- [Caveat](https://fonts.google.com/specimen/Caveat) — Open Font License
 
-All commands are run from the root of the project, from a terminal:
+### Fotos
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Alle Workshop- und Projektfotos: © Jorinde Dehmel.
 
-## 👀 Want to learn more?
+### Code
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Astro-Scaffold ursprünglich aus dem [Astro Blog Template](https://github.com/withastro/astro/tree/main/examples/blog),
+inzwischen vollständig durch Variant B (Triangulation) ersetzt.
