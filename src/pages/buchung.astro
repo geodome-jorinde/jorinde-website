@@ -1,0 +1,322 @@
+---
+import VariantB from "../layouts/VariantB.astro";
+const root = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<VariantB title="Workshop buchen — GardenGeoDome" activeNav="buchung">
+	<header class="page-header">
+		<div class="kicker">Buchen</div>
+		<h1>Workshop <strong>buchen.</strong></h1>
+		<p class="lede">In drei Schritten zur Anfrage: Workshop wählen, Termin vorschlagen, absenden. Ich melde mich innerhalb weniger Tage zurück und wir besprechen die Details — danach wird es verbindlich.</p>
+	</header>
+
+	<form class="bk-form" action="mailto:info@gardengeodome.com?subject=Workshop-Buchungsanfrage" method="post" enctype="text/plain">
+		<!-- Step 1: Workshop -->
+		<section class="bk-step">
+			<div class="bk-step-head">
+				<span class="bk-step-num">01</span>
+				<h2>Welcher Workshop?</h2>
+			</div>
+			<div class="bk-options">
+				<label class="bk-option">
+					<input type="radio" name="workshop" value="2-Stunden-Workshop (90 EUR)" checked />
+					<div class="bk-opt-card">
+						<div class="bk-opt-tag">2-Stunden-Workshop</div>
+						<div class="bk-opt-price"><strong>90 €</strong><span>zzgl. Anreise außerhalb Freiburgs (&gt;30 km)</span></div>
+						<p class="bk-opt-lead">Kompakte Einführung — du lernst das Prinzip der geodätischen Triangulation kennen, mit den eigenen Händen.</p>
+						<ul>
+							<li>Material wird gestellt</li>
+							<li>2–10 Personen</li>
+							<li>Ca. 2 Stunden</li>
+							<li>Ideal als Schnupper-Erfahrung, Team-Event oder Schul-AG</li>
+						</ul>
+					</div>
+				</label>
+
+				<label class="bk-option">
+					<input type="radio" name="workshop" value="Ganztaegiger Workshop (380 EUR)" />
+					<div class="bk-opt-card">
+						<div class="bk-opt-tag">Ganztägiger Workshop</div>
+						<div class="bk-opt-price"><strong>380 €</strong><span>zzgl. Material</span></div>
+						<p class="bk-opt-lead">Volle Erfahrung — gemeinsam bauen wir einen vollständigen Geodome, vom ersten Strich bis zur fertigen Kuppel.</p>
+						<ul>
+							<li>Material in Absprache: <em>hochwertig neu</em>, oder <em>Recycling- / Naturmaterialien</em></li>
+							<li>Ein ganzer Tag (~6–8 Stunden)</li>
+							<li>Ihr nehmt eine fertige Konstruktion mit</li>
+							<li>Nachhaltig, sinnstiftend, verbindend</li>
+						</ul>
+					</div>
+				</label>
+			</div>
+		</section>
+
+		<!-- Step 2: Datum -->
+		<section class="bk-step">
+			<div class="bk-step-head">
+				<span class="bk-step-num">02</span>
+				<h2>Wunsch-Termin.</h2>
+			</div>
+			<p class="bk-step-hint">Bitte plane 4–6 Wochen Vorlauf ein. Alternative Termine kannst du im Freitext-Feld nennen.</p>
+			<div class="bk-grid-2">
+				<div class="bk-field">
+					<label for="datum">Datum</label>
+					<input type="date" id="datum" name="datum" required />
+				</div>
+				<div class="bk-field">
+					<label for="alternativ">Alternative (optional)</label>
+					<input type="text" id="alternativ" name="alternativ" placeholder="z.B. eine Woche später, Wochenende danach" />
+				</div>
+			</div>
+		</section>
+
+		<!-- Step 3: Gruppe & Ort -->
+		<section class="bk-step">
+			<div class="bk-step-head">
+				<span class="bk-step-num">03</span>
+				<h2>Gruppe & Ort.</h2>
+			</div>
+			<div class="bk-grid-2">
+				<div class="bk-field">
+					<label for="personen">Anzahl Personen</label>
+					<input type="number" id="personen" name="personen" min="1" max="20" placeholder="z.B. 6" required />
+				</div>
+				<div class="bk-field">
+					<label for="ort">Ort / PLZ</label>
+					<input type="text" id="ort" name="ort" placeholder="z.B. Freiburg, 79100 — oder bei mir in Freiburg" required />
+				</div>
+			</div>
+		</section>
+
+		<!-- Step 4: Kontakt -->
+		<section class="bk-step">
+			<div class="bk-step-head">
+				<span class="bk-step-num">04</span>
+				<h2>Deine Kontaktdaten.</h2>
+			</div>
+			<div class="bk-grid-2">
+				<div class="bk-field">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" required autocomplete="name" />
+				</div>
+				<div class="bk-field">
+					<label for="email">E-Mail</label>
+					<input type="email" id="email" name="email" required autocomplete="email" />
+				</div>
+			</div>
+			<div class="bk-field">
+				<label for="telefon">Telefon (optional)</label>
+				<input type="tel" id="telefon" name="telefon" autocomplete="tel" />
+			</div>
+		</section>
+
+		<!-- Step 5: Nachricht -->
+		<section class="bk-step">
+			<div class="bk-step-head">
+				<span class="bk-step-num">05</span>
+				<h2>Hintergrund &amp; Wünsche.</h2>
+			</div>
+			<div class="bk-field">
+				<label for="msg">Nachricht (optional)</label>
+				<textarea id="msg" name="msg" rows="6" placeholder="Anlass, Material-Vorliebe (für Ganztags-Workshop), besondere Wünsche, Fragen — alles was hilft, deinen Workshop zu planen."></textarea>
+			</div>
+		</section>
+
+		<div class="bk-submit">
+			<button type="submit" class="btn primary bk-submit-btn">Anfrage absenden</button>
+			<p class="bk-form-hint">Öffnet dein E-Mail-Programm. Es ist eine <em>Anfrage</em> — die Buchung wird erst nach unserer Rücksprache verbindlich. Falls du keinen E-Mail-Client hast, schreib direkt an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a>.</p>
+		</div>
+	</form>
+
+	<script is:inline>
+		// Pre-select workshop type from URL: /buchung?type=2h or ?type=ganztaegig
+		(function () {
+			const params = new URLSearchParams(window.location.search);
+			const t = params.get("type");
+			if (t === "ganztaegig" || t === "2h") {
+				const value = t === "ganztaegig" ? "Ganztaegiger Workshop (380 EUR)" : "2-Stunden-Workshop (90 EUR)";
+				const radio = document.querySelector('input[name="workshop"][value="' + value + '"]');
+				if (radio) radio.checked = true;
+			}
+		})();
+	</script>
+
+	<style>
+		.bk-form {
+			padding: 2rem 3rem 6rem;
+			max-width: 980px;
+			border-top: 1px solid var(--line);
+		}
+
+		.bk-step {
+			padding: 2.5rem 0 1rem;
+			border-top: 1px solid rgba(26,26,26,0.1);
+		}
+		.bk-step:first-child { border-top: none; padding-top: 1.5rem; }
+		.bk-step-head {
+			display: flex; align-items: baseline; gap: 1.25rem;
+			margin-bottom: 1.25rem;
+		}
+		.bk-step-num {
+			font-family: "Fraunces Variable", "Fraunces", Georgia, serif;
+			font-size: 0.85rem; font-weight: 700;
+			color: var(--green-deep);
+			letter-spacing: 0.18em;
+			font-variation-settings: "SOFT" 80, "WONK" 1;
+		}
+		.bk-step-head h2 {
+			font-family: "Fraunces Variable", "Fraunces", Georgia, serif;
+			font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+			font-weight: 500;
+			font-variation-settings: "SOFT" 80, "WONK" 1, "opsz" 144;
+			letter-spacing: -0.005em;
+		}
+		.bk-step-hint {
+			color: var(--muted);
+			margin-bottom: 1.25rem;
+			max-width: 36em;
+			font-size: 0.95rem;
+		}
+
+		/* Workshop options */
+		.bk-options {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.25rem;
+			margin-top: 0.5rem;
+		}
+		.bk-option {
+			cursor: pointer;
+			display: block;
+			position: relative;
+		}
+		.bk-option input[type="radio"] {
+			position: absolute;
+			opacity: 0;
+			pointer-events: none;
+		}
+		.bk-opt-card {
+			border: 2px solid var(--line);
+			padding: 1.75rem 1.5rem;
+			background: var(--bg);
+			transition: border-color 150ms, background 150ms, box-shadow 150ms;
+			height: 100%;
+		}
+		.bk-option:hover .bk-opt-card { background: var(--surface); }
+		.bk-option input[type="radio"]:checked ~ .bk-opt-card,
+		.bk-option:has(input[type="radio"]:checked) .bk-opt-card {
+			border-color: var(--green-deep);
+			background: var(--surface);
+			box-shadow: inset 0 0 0 1px var(--green-deep);
+		}
+		.bk-opt-tag {
+			font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+			color: var(--green-deep); font-weight: 700;
+			margin-bottom: 0.85rem;
+		}
+		.bk-opt-price {
+			display: flex; align-items: baseline; gap: 0.85rem;
+			margin-bottom: 1rem; flex-wrap: wrap;
+		}
+		.bk-opt-price strong {
+			font-family: "Fraunces Variable", "Fraunces", Georgia, serif;
+			font-size: clamp(1.75rem, 3vw, 2.25rem);
+			font-weight: 600;
+			font-variation-settings: "SOFT" 80, "WONK" 1, "opsz" 144;
+			letter-spacing: -0.01em;
+			color: var(--ink);
+		}
+		.bk-opt-price span {
+			font-size: 0.82rem;
+			color: var(--muted);
+		}
+		.bk-opt-lead {
+			font-size: 1rem; line-height: 1.5;
+			margin-bottom: 1rem;
+		}
+		.bk-option ul { list-style: none; padding: 0; }
+		.bk-option ul li {
+			font-size: 0.92rem;
+			color: var(--muted);
+			line-height: 1.5;
+			padding-left: 1.1rem;
+			position: relative;
+			margin-bottom: 0.45rem;
+		}
+		.bk-option ul li::before {
+			content: "·";
+			position: absolute;
+			left: 0;
+			color: var(--green-deep);
+			font-weight: 700;
+		}
+		.bk-option ul li em { font-style: italic; color: var(--ink); }
+
+		/* Form fields */
+		.bk-grid-2 {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem;
+		}
+		.bk-field {
+			display: flex; flex-direction: column; gap: 0.45rem;
+			margin-bottom: 1rem;
+		}
+		.bk-field label {
+			font-size: 0.72rem;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: var(--green-deep);
+			font-weight: 700;
+		}
+		.bk-field input, .bk-field textarea {
+			font: inherit;
+			font-size: 1rem;
+			background: transparent;
+			border: none;
+			border-bottom: 1px solid var(--line);
+			padding: 0.6rem 0;
+			color: var(--ink);
+			outline: none;
+			transition: border-color 150ms;
+			resize: vertical;
+		}
+		.bk-field input:focus, .bk-field textarea:focus {
+			border-bottom-color: var(--green-deep);
+		}
+		.bk-field textarea {
+			border: 1px solid var(--line);
+			padding: 0.85rem 1rem;
+			background: var(--surface);
+			min-height: 9rem;
+		}
+
+		/* Submit */
+		.bk-submit {
+			padding: 2.5rem 0 0;
+			border-top: 1px solid rgba(26,26,26,0.1);
+			margin-top: 1.5rem;
+		}
+		.bk-submit-btn {
+			font-family: inherit;
+			font-size: 1rem;
+			padding: 1rem 2.25rem;
+		}
+		.bk-form-hint {
+			margin-top: 1rem;
+			font-size: 0.85rem;
+			color: var(--muted);
+			max-width: 38em;
+			line-height: 1.55;
+		}
+		.bk-form-hint a {
+			color: var(--green-deep);
+			border-bottom: 1px solid currentColor;
+			padding-bottom: 1px;
+		}
+		.bk-form-hint em { font-style: italic; color: var(--ink); }
+
+		@media (max-width: 760px) {
+			.bk-form { padding: 1.5rem 1.5rem 4rem; }
+			.bk-options, .bk-grid-2 { grid-template-columns: 1fr; }
+		}
+	</style>
+</VariantB>

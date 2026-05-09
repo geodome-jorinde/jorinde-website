@@ -5,17 +5,18 @@ import "@fontsource-variable/manrope";
 interface Props {
 	title: string;
 	description?: string;
-	activeNav?: "workshops" | "projekte" | "mir" | "kontakt" | null;
+	activeNav?: "workshops" | "projekte" | "mir" | "kontakt" | "buchung" | null;
 }
 const { title, description = "GardenGeoDome — Workshops zum Bauen geodätischer Kuppeln in Freiburg.", activeNav = null } = Astro.props;
 
 // All internal links use BASE_URL so deploys at any subpath (e.g. /jorinde-website) work.
 const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 const nav = [
-	{ label: "Workshops", href: `${root}/#workshops`, key: "workshops" },
-	{ label: "Projekte", href: `${root}/projekte`, key: "projekte" },
-	{ label: "Über mich", href: `${root}/zu-mir`, key: "mir" },
-	{ label: "Kontakt", href: `${root}/kontakt`, key: "kontakt" },
+	{ label: "Workshops", href: `${root}/#workshops`, key: "workshops", primary: false },
+	{ label: "Projekte", href: `${root}/projekte`, key: "projekte", primary: false },
+	{ label: "Über mich", href: `${root}/zu-mir`, key: "mir", primary: false },
+	{ label: "Kontakt", href: `${root}/kontakt`, key: "kontakt", primary: false },
+	{ label: "Buchen", href: `${root}/buchung`, key: "buchung", primary: true },
 ];
 ---
 <!doctype html>
@@ -65,10 +66,20 @@ const nav = [
 			}
 			.brand:hover { opacity: 0.78; }
 			.brandseal-svg { display: block; }
-			.nav ul { display: flex; gap: 2rem; list-style: none; font-size: 0.85rem; font-weight: 500; }
+			.nav ul { display: flex; gap: 1.75rem; list-style: none; font-size: 0.85rem; font-weight: 500; align-items: center; }
 			.nav ul a { transition: color 150ms; padding-bottom: 2px; border-bottom: 1px solid transparent; }
 			.nav ul a:hover { color: var(--green-deep); }
 			.nav ul a.active { color: var(--green-deep); border-bottom-color: var(--green-deep); }
+			.nav ul a.primary {
+				background: var(--green-deep);
+				color: var(--bg);
+				padding: 0.55rem 1.1rem;
+				border-bottom: none;
+				font-weight: 600;
+				transition: background 150ms;
+			}
+			.nav ul a.primary:hover { background: var(--ink); color: var(--bg); }
+			.nav ul a.primary.active { background: var(--ink); color: var(--bg); }
 
 			/* BUTTONS */
 			.btn {
@@ -227,9 +238,13 @@ const nav = [
 				<BrandSeal size={68} variant="fine" font="fraunces" flora={true} />
 			</a>
 			<ul>
-				{nav.map((n) => (
-					<li><a href={n.href} class={activeNav === n.key ? "active" : ""}>{n.label}</a></li>
-				))}
+				{nav.map((n) => {
+					const classes = [
+						n.primary ? "primary" : null,
+						activeNav === n.key ? "active" : null,
+					].filter(Boolean).join(" ");
+					return <li><a href={n.href} class={classes}>{n.label}</a></li>;
+				})}
 			</ul>
 		</nav>
 
