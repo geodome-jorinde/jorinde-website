@@ -2,75 +2,24 @@
 import VariantB from "../layouts/VariantB.astro";
 const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
-<VariantB title="Kontakt — GardenGeoDome" activeNav="kontakt">
+<VariantB title="Kontakt — GardenGeoDome">
 	<header class="page-header">
 		<div class="kicker">Kontakt</div>
-		<h1>Workshop <strong>anfragen.</strong></h1>
-		<p class="lede">Erzähl mir, was du im Sinn hast — Ort, Gruppe, Anlass. Ich melde mich zurück und wir finden einen Termin.</p>
+		<h1>Hallo. <strong>Schreib mir.</strong></h1>
+		<p class="lede">Alle Anfragen — Buchungen, Projekte oder einfach Fragen — laufen über das Buchungs- und Anfrage-Formular. Direkter Kontakt geht aber genauso.</p>
 	</header>
 
 	<section class="kt-grid">
-		<form id="kontakt-form" class="kt-form">
-			<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="kt-hp" />
-			<div class="kt-row">
-				<label for="name">Name</label>
-				<input id="name" name="name" type="text" required autocomplete="name" />
-			</div>
-			<div class="kt-row">
-				<label for="email">E-Mail</label>
-				<input id="email" name="email" type="email" required autocomplete="email" />
-			</div>
-			<div class="kt-row">
-				<label for="kontext">Anlass / Ort / Gruppengröße</label>
-				<input id="kontext" name="kontext" type="text" placeholder="z.B. Garten in Freiburg · 8 Personen · Sommerfest" />
-			</div>
-			<div class="kt-row">
-				<label for="msg">Nachricht</label>
-				<textarea id="msg" name="msg" rows="6" required placeholder="Was schwebt dir vor?"></textarea>
-			</div>
-			<label class="kt-consent">
-				<input type="checkbox" name="consent" required />
-				<span>Ich willige ein, dass meine Angaben (Name, E-Mail, Nachricht) zur Bearbeitung meiner Anfrage verarbeitet werden. Die Daten werden nicht an Dritte weitergegeben und spätestens 6 Monate nach Abschluss gelöscht. Mehr in der <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>.</span>
-			</label>
-			<div class="kt-actions">
-				<button type="submit" class="btn primary">Anfrage senden</button>
-				<p class="kt-hint">Öffnet dein E-Mail-Programm. Du kannst auch direkt schreiben an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a>.</p>
-			</div>
-		</form>
-
-		<script is:inline>
-			(function () {
-				const form = document.getElementById("kontakt-form");
-				if (!form) return;
-				form.addEventListener("submit", function (e) {
-					e.preventDefault();
-					if (!form.checkValidity()) { form.reportValidity(); return; }
-					if (form._gotcha && form._gotcha.value) return;
-					const data = new FormData(form);
-					const get = (k) => (data.get(k) || "").toString().trim();
-					const lines = [
-						"Anfrage von " + get("name"),
-						"",
-						"Name:    " + get("name"),
-						"E-Mail:  " + get("email"),
-						"Anlass:  " + (get("kontext") || "—"),
-						"",
-						"Nachricht:",
-						get("msg"),
-						"",
-						"---",
-						"Einwilligung zur Datenverarbeitung erteilt.",
-					].join("\n");
-					const subject = encodeURIComponent("Anfrage von " + get("name"));
-					const body = encodeURIComponent(lines);
-					window.location.href = "mailto:info@gardengeodome.com?subject=" + subject + "&body=" + body;
-				});
-			})();
-		</script>
+		<div class="kt-cta-card">
+			<div class="kt-cta-label">Workshop oder Frage?</div>
+			<h2>Anfrage stellen.</h2>
+			<p>Wähle einen Workshop und schlage einen Termin vor — oder stell einfach eine Frage. Ich melde mich innerhalb weniger Tage zurück.</p>
+			<a class="btn primary kt-cta-btn" href={`${root}/buchung`}>Zum Anfrage-Formular</a>
+		</div>
 
 		<aside class="kt-side">
 			<div class="kt-card">
-				<div class="kt-card-label">Direkt</div>
+				<div class="kt-card-label">Direkt schreiben</div>
 				<p><strong>Jorinde Dehmel</strong></p>
 				<p>Vaubanallee 22<br />79100 Freiburg i.Br.<br />Germany</p>
 				<p style="margin-top:1rem;"><a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a></p>
@@ -88,53 +37,29 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem;
 			border-top: 1px solid var(--line);
 		}
-		.kt-form { display: flex; flex-direction: column; gap: 1.5rem; max-width: 38em; }
-		.kt-row { display: flex; flex-direction: column; gap: 0.4rem; }
-		.kt-row label {
-			font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
-			color: var(--green-deep); font-weight: 700;
-		}
-		.kt-row input, .kt-row textarea {
-			font: inherit; font-size: 1rem;
-			background: transparent;
-			border: none; border-bottom: 1px solid var(--line);
-			padding: 0.6rem 0;
-			color: var(--ink);
-			outline: none;
-			transition: border-color 150ms;
-			resize: vertical;
-		}
-		.kt-row input:focus, .kt-row textarea:focus { border-bottom-color: var(--green-deep); }
-		.kt-row textarea {
-			border: 1px solid var(--line);
-			padding: 0.75rem 0.85rem;
-			min-height: 8rem;
+		.kt-cta-card {
+			padding: 2.5rem 2.25rem;
 			background: var(--surface);
+			border: 1px solid var(--line);
+			max-width: 38em;
 		}
-		.kt-actions { display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; margin-top: 0.5rem; }
-		.kt-actions button { font-family: inherit; }
-		.kt-hint { font-size: 0.85rem; color: var(--muted); max-width: 28em; }
-		.kt-hint a { color: var(--green-deep); border-bottom: 1px solid currentColor; }
-		/* Consent + honeypot */
-		.kt-consent {
-			display: flex; align-items: flex-start; gap: 0.75rem;
-			cursor: pointer; max-width: 38em;
-			margin-top: 0.25rem;
+		.kt-cta-label {
+			font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+			color: var(--green-deep); font-weight: 700;
+			margin-bottom: 0.85rem;
 		}
-		.kt-consent input[type="checkbox"] {
-			margin-top: 0.25rem;
-			accent-color: var(--green-deep);
-			flex-shrink: 0;
-			width: 1.05rem; height: 1.05rem;
+		.kt-cta-card h2 {
+			font-family: "Fraunces Variable", "Fraunces", Georgia, serif;
+			font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+			font-weight: 500;
+			font-variation-settings: "SOFT" 80, "WONK" 1, "opsz" 144;
+			margin-bottom: 1rem;
 		}
-		.kt-consent span { font-size: 0.85rem; line-height: 1.55; color: var(--muted); }
-		.kt-consent a { color: var(--green-deep); border-bottom: 1px solid currentColor; }
-		.kt-hp {
-			position: absolute !important;
-			left: -10000px !important;
-			width: 1px !important; height: 1px !important;
-			opacity: 0 !important; pointer-events: none;
+		.kt-cta-card p {
+			font-size: 1rem; line-height: 1.6; color: var(--ink);
+			margin-bottom: 1.75rem; max-width: 30em;
 		}
+		.kt-cta-btn { display: inline-block; }
 
 		.kt-side { display: flex; flex-direction: column; gap: 1.5rem; }
 		.kt-card { background: var(--surface); border: 1px solid var(--line); padding: 2rem; }

@@ -2,11 +2,11 @@
 import VariantB from "../layouts/VariantB.astro";
 const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
-<VariantB title="Workshop buchen — GardenGeoDome" activeNav="buchung">
+<VariantB title="Workshop buchen oder fragen — GardenGeoDome" activeNav="buchung">
 	<header class="page-header">
-		<div class="kicker">Buchen</div>
-		<h1>Workshop <strong>buchen.</strong></h1>
-		<p class="lede">In drei Schritten zur Anfrage: Workshop wählen, Termin vorschlagen, absenden. Ich melde mich innerhalb weniger Tage zurück und wir besprechen die Details — danach wird es verbindlich.</p>
+		<div class="kicker">Buchen · Fragen</div>
+		<h1>Workshop buchen<br /><strong>— oder einfach fragen.</strong></h1>
+		<p class="lede">Wähle einen Workshop und schlage einen Termin vor — oder stell einfach eine Frage. Ich melde mich innerhalb weniger Tage zurück; verbindlich wird es erst nach unserer Rücksprache.</p>
 	</header>
 
 	<form id="buchung-form" class="bk-form">
@@ -62,11 +62,19 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 						</ul>
 					</div>
 				</label>
+
+				<label class="bk-option bk-option-question">
+					<input type="radio" name="workshop" value="Frage / Allgemeine Anfrage" />
+					<div class="bk-opt-card">
+						<div class="bk-opt-tag">Frage · Allgemeine Anfrage</div>
+						<p class="bk-opt-lead">Du bist noch nicht bereit zu buchen? Stell einfach eine Frage — zu Workshops, Projekten, Materialien, Kooperationen oder allem anderen. Datum und Gruppengröße kannst du dann überspringen.</p>
+					</div>
+				</label>
 			</div>
 		</section>
 
-		<!-- Step 2: Datum -->
-		<section class="bk-step">
+		<!-- Step 2: Datum (booking-only) -->
+		<section class="bk-step bk-step-booking">
 			<div class="bk-step-head">
 				<span class="bk-step-num">02</span>
 				<h2>Wunsch-Termin.</h2>
@@ -84,8 +92,8 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			</div>
 		</section>
 
-		<!-- Step 3: Gruppe & Ort -->
-		<section class="bk-step">
+		<!-- Step 3: Gruppe & Ort (booking-only) -->
+		<section class="bk-step bk-step-booking">
 			<div class="bk-step-head">
 				<span class="bk-step-num">03</span>
 				<h2>Gruppe & Ort.</h2>
@@ -139,9 +147,13 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 		<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="bk-hp" />
 
 		<div class="bk-consent-block">
+			<label class="bk-consent bk-newsletter-opt">
+				<input type="checkbox" name="newsletter" />
+				<span>Ja, ich möchte gelegentlich Updates zu Workshop-Terminen und Projekten erhalten (Newsletter, Abmelden jederzeit per E-Mail).</span>
+			</label>
 			<label class="bk-consent">
 				<input type="checkbox" name="consent" required />
-				<span>Ich willige ein, dass meine angegebenen Daten (Name, E-Mail, Telefon, Anfrage-Details) zur Bearbeitung meiner Workshop-Anfrage verarbeitet werden. Die Daten werden nicht an Dritte weitergegeben und spätestens 6 Monate nach Abschluss der Anfrage gelöscht. Ich kann meine Einwilligung jederzeit per E-Mail an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a> widerrufen. Mehr in der <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>.</span>
+				<span>Ich willige ein, dass meine angegebenen Daten (Name, E-Mail, Telefon, Anfrage-Details) zur Bearbeitung meiner Anfrage verarbeitet werden. Die Daten werden nicht an Dritte weitergegeben und spätestens 6 Monate nach Abschluss der Anfrage gelöscht. Ich kann meine Einwilligung jederzeit per E-Mail an <a href="mailto:info@gardengeodome.com">info@gardengeodome.com</a> widerrufen. Mehr in der <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>.</span>
 			</label>
 		</div>
 
@@ -152,7 +164,7 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 	</form>
 
 	<script is:inline>
-		// Pre-select workshop type from URL: /buchung?type=2h | ganztaegig | schule
+		// Pre-select workshop type from URL: /buchung?type=2h | ganztaegig | schule | frage
 		(function () {
 			const params = new URLSearchParams(window.location.search);
 			const t = params.get("type");
@@ -160,11 +172,34 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 				"2h": "2-Stunden-Workshop (140 EUR)",
 				"ganztaegig": "Ganztaegiger Workshop (480 EUR)",
 				"schule": "Schule / Paedagogische Einrichtung (Preis auf Anfrage)",
+				"frage": "Frage / Allgemeine Anfrage",
 			};
 			if (t && map[t]) {
 				const radio = document.querySelector('input[name="workshop"][value="' + map[t] + '"]');
 				if (radio) radio.checked = true;
 			}
+		})();
+
+		// Toggle booking-only sections (Datum, Gruppe & Ort) based on workshop choice.
+		(function () {
+			const form = document.getElementById("buchung-form");
+			if (!form) return;
+			const submitBtn = form.querySelector(".bk-submit-btn");
+			const bookingFields = ["datum", "personen", "ort"];
+
+			function applyMode() {
+				const checked = form.querySelector('input[name="workshop"]:checked');
+				const isFrage = checked && checked.value.startsWith("Frage");
+				form.classList.toggle("is-question-mode", isFrage);
+				bookingFields.forEach((name) => {
+					const el = form[name];
+					if (el) el.required = !isFrage;
+				});
+				if (submitBtn) submitBtn.textContent = isFrage ? "Frage senden" : "Anfrage absenden";
+			}
+
+			form.querySelectorAll('input[name="workshop"]').forEach((r) => r.addEventListener("change", applyMode));
+			applyMode();
 		})();
 
 		// Submit handler — builds mailto: URL programmatically so Chrome doesn't
@@ -178,27 +213,53 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 				if (form._gotcha && form._gotcha.value) return;
 				const data = new FormData(form);
 				const get = (k) => (data.get(k) || "").toString().trim();
-				const lines = [
-					"Workshop-Buchungsanfrage von " + get("name"),
-					"",
-					"Workshop:    " + get("workshop"),
-					"Datum:       " + get("datum"),
-					"Alternative: " + (get("alternativ") || "—"),
-					"Personen:    " + get("personen"),
-					"Ort / PLZ:   " + get("ort"),
-					"",
-					"Kontakt:",
-					"  Name:    " + get("name"),
-					"  E-Mail:  " + get("email"),
-					"  Telefon: " + (get("telefon") || "—"),
-					"",
-					"Nachricht:",
-					(get("msg") || "—"),
-					"",
-					"---",
-					"Einwilligung zur Datenverarbeitung erteilt.",
-				].join("\n");
-				const subject = encodeURIComponent("Workshop-Buchungsanfrage von " + get("name"));
+				const isFrage = get("workshop").startsWith("Frage");
+				const newsletter = data.get("newsletter") ? "ja" : "nein";
+
+				const lines = isFrage
+					? [
+						"Allgemeine Anfrage von " + get("name"),
+						"",
+						"Anliegen:    " + get("workshop"),
+						"",
+						"Kontakt:",
+						"  Name:    " + get("name"),
+						"  E-Mail:  " + get("email"),
+						"  Telefon: " + (get("telefon") || "—"),
+						"",
+						"Nachricht:",
+						(get("msg") || "—"),
+						"",
+						"Newsletter: " + newsletter,
+						"",
+						"---",
+						"Einwilligung zur Datenverarbeitung erteilt.",
+					].join("\n")
+					: [
+						"Workshop-Buchungsanfrage von " + get("name"),
+						"",
+						"Workshop:    " + get("workshop"),
+						"Datum:       " + get("datum"),
+						"Alternative: " + (get("alternativ") || "—"),
+						"Personen:    " + get("personen"),
+						"Ort / PLZ:   " + get("ort"),
+						"",
+						"Kontakt:",
+						"  Name:    " + get("name"),
+						"  E-Mail:  " + get("email"),
+						"  Telefon: " + (get("telefon") || "—"),
+						"",
+						"Nachricht:",
+						(get("msg") || "—"),
+						"",
+						"Newsletter: " + newsletter,
+						"",
+						"---",
+						"Einwilligung zur Datenverarbeitung erteilt.",
+					].join("\n");
+
+				const subjectPrefix = isFrage ? "Anfrage von " : "Workshop-Buchungsanfrage von ";
+				const subject = encodeURIComponent(subjectPrefix + get("name"));
 				const body = encodeURIComponent(lines);
 				window.location.href = "mailto:info@gardengeodome.com?subject=" + subject + "&body=" + body;
 			});
@@ -264,6 +325,24 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 		.bk-option-school .bk-opt-card {
 			border-style: dashed;
 			background: var(--surface);
+		}
+		.bk-option-question {
+			grid-column: 1 / -1;
+			margin-top: 0.25rem;
+		}
+		.bk-option-question .bk-opt-card {
+			border-style: dashed;
+			background: transparent;
+			padding: 1.25rem 1.5rem;
+		}
+		.bk-option-question .bk-opt-lead {
+			margin-bottom: 0;
+		}
+		.is-question-mode .bk-step-booking {
+			display: none;
+		}
+		.bk-newsletter-opt span {
+			color: var(--ink) !important;
 		}
 		@media (max-width: 1100px) {
 			.bk-options { grid-template-columns: 1fr 1fr; }
@@ -391,6 +470,7 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			padding: 2rem 0 0;
 			border-top: 1px solid rgba(26,26,26,0.1);
 			margin-top: 1.5rem;
+			display: flex; flex-direction: column; gap: 1.25rem;
 		}
 		.bk-consent {
 			display: flex; align-items: flex-start; gap: 0.75rem;
