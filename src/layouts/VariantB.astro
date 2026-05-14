@@ -7,9 +7,9 @@ interface Props {
 	description?: string;
 	activeNav?: "workshops" | "projekte" | "mir" | "kontakt" | "buchung" | null;
 }
-const { title, description = "GardenGeoDome — Workshops zum Bauen geodätischer Kuppeln in Freiburg.", activeNav = null } = Astro.props;
+const { title, description = "Geodome Freiburg — Workshops zum Bauen geodätischer Kuppeln in Freiburg.", activeNav = null } = Astro.props;
 
-// All internal links use BASE_URL so deploys at any subpath (e.g. /jorinde-website) work.
+// All internal links use BASE_URL so deploys at any subpath work; on the custom domain (www.geodome-freiburg.de) BASE_URL is "/".
 const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 const nav = [
 	{ label: "Workshops", href: `${root}/#workshops`, key: "workshops", primary: false },
@@ -259,7 +259,7 @@ const nav = [
 	</head>
 	<body>
 		<nav class="nav">
-			<a class="brand" href={`${root}/`} aria-label="GardenGeoDome — Startseite">
+			<a class="brand" href={`${root}/`} aria-label="Geodome Freiburg — Startseite">
 				<BrandSeal size={68} variant="fine" font="fraunces" flora={true} />
 			</a>
 			<ul>
@@ -333,7 +333,7 @@ const nav = [
 				</div>
 			</div>
 			<div class="foot-bottom">
-				<div>© 2026 Jorinde Dehmel · GardenGeoDome</div>
+				<div>© 2026 Jorinde Dehmel · Geodome Freiburg</div>
 				<div class="foot-links">
 					<a href={`${root}/impressum`}>Impressum</a>
 					<a href={`${root}/datenschutz`}>Datenschutz</a>

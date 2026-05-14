@@ -1,12 +1,12 @@
 ---
 /**
- * Brand seal for GardenGeoDome.
+ * Brand seal for Geodome Freiburg.
  *
  * Geodesic dome glyph by Methadrone (https://thenounproject.com/creator/Methadrone/)
  * from The Noun Project — "Geodesic Dome" icon #11999, CC BY 3.0.
  * Optional wildflower decoration (BrandFlora) breaks the technical character
  * by adding an organic plant element at the dome's base.
- * Wrapped in optional concentric rings with curved "GARDEN" / "GEODESIC DOME" text.
+ * Wrapped in optional concentric rings with curved "GEODOME" / "FREIBURG" text.
  *
  * Stroke uses vector-effect="non-scaling-stroke" so lines stay 1.4 screen px
  * at any render size — thin and consistent.
@@ -92,7 +92,7 @@ const f = fonts[font];
 	height={size}
 	fill="currentColor"
 	stroke="none"
-	aria-label="Garden Geodesic Dome"
+	aria-label="Geodome Freiburg"
 	role="img"
 	class="brandseal-svg"
 >
@@ -137,10 +137,10 @@ const f = fonts[font];
 	     between the inner and outer rings (independent of cap height). -->
 	<g class="seal-text" font-family={f.family} font-weight={f.weight} font-style={f.style} style={f.fvs ? `font-variation-settings: ${f.fvs};` : undefined} fill="currentColor" stroke="none">
 		<text font-size={f.topSize} letter-spacing={f.topSpacing} dominant-baseline="middle">
-			<textPath href={`#top-${id}`} startOffset="50%" text-anchor="middle">GARDEN</textPath>
+			<textPath href={`#top-${id}`} startOffset="50%" text-anchor="middle">GEODOME</textPath>
 		</text>
 		<text font-size={f.botSize} letter-spacing={f.botSpacing} dominant-baseline="middle">
-			<textPath href={`#bot-${id}`} startOffset="50%" text-anchor="middle">GEODESIC DOME</textPath>
+			<textPath href={`#bot-${id}`} startOffset="50%" text-anchor="middle">FREIBURG</textPath>
 		</text>
 	</g>
 </svg>
