@@ -78,6 +78,14 @@ const projekte = [
 		gallery: ["30.jpg", "31.jpg", "32.jpg"],
 	},
 	{
+		slug: "piratendome",
+		title: "Piratendome",
+		year: "2022",
+		context: "Pfingstcamp mit den Stadtpiraten Freiburg e.V., Freiburg.",
+		cover: "29a.jpg",
+		gallery: ["29b.jpg", "29c.jpg", "29d.jpg"],
+	},
+	{
 		slug: "nord-sued-dome",
 		title: "Nord-Süd-Dome",
 		year: "2022",
@@ -213,7 +221,7 @@ const imgPath = (file: string) => `${root}/images/projekte/${file}`;
 
 		.pj-item {
 			background: var(--surface);
-			border: 1px solid var(--line);
+			border-radius: 12px;
 			overflow: hidden;
 		}
 
@@ -233,7 +241,8 @@ const imgPath = (file: string) => `${root}/images/projekte/${file}`;
 		.pj-cover img {
 			display: block;
 			width: 100%;
-			aspect-ratio: 16 / 7;
+			aspect-ratio: 21 / 8;
+			max-height: 360px;
 			object-fit: cover;
 			transition: transform 500ms ease;
 		}
@@ -248,34 +257,33 @@ const imgPath = (file: string) => `${root}/images/projekte/${file}`;
 			align-items: flex-end;
 			justify-content: space-between;
 			gap: 1.5rem;
-			padding: 1.75rem 2rem;
-			background: linear-gradient(180deg, rgba(26,26,26,0) 35%, rgba(26,26,26,0.78) 100%);
-			color: var(--bg);
+			padding: 1.5rem 1.75rem;
+			background: linear-gradient(180deg, rgba(26,26,26,0) 30%, rgba(26,26,26,0.82) 100%);
+			color: #fff;
 			pointer-events: none;
 		}
-		.pj-overlay-inner { max-width: 60ch; }
+		.pj-overlay-inner { max-width: 60ch; color: #fff; }
 		.pj-year {
 			display: inline-block;
 			font-size: 0.78rem;
 			letter-spacing: 0.18em;
 			font-weight: 700;
 			margin-bottom: 0.4rem;
-			opacity: 0.9;
+			color: #fff;
 		}
 		.pj-title {
-			font-family: "Fraunces Variable", "Fraunces", Georgia, serif;
-			font-variation-settings: "SOFT" 80, "WONK" 1, "opsz" 144;
-			font-size: clamp(1.5rem, 3vw, 2.25rem);
-			font-weight: 500;
-			line-height: 1.1;
+			font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+			font-weight: 700;
+			line-height: 1.15;
 			letter-spacing: -0.01em;
 			margin: 0 0 0.4rem;
+			color: #fff;
 		}
 		.pj-context {
 			margin: 0;
 			font-size: 0.95rem;
 			line-height: 1.45;
-			opacity: 0.92;
+			color: #fff;
 			max-width: 56ch;
 		}
 
@@ -319,15 +327,16 @@ const imgPath = (file: string) => `${root}/images/projekte/${file}`;
 
 		.pj-gallery {
 			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-			gap: 0.75rem;
-			padding: 1.25rem 1.5rem 1.5rem;
+			grid-template-columns: repeat(auto-fill, minmax(384px, 1fr));
+			gap: 1rem;
+			padding: 1.5rem;
 		}
 		.pj-thumb {
 			margin: 0;
 			background: var(--bg);
 			aspect-ratio: 4 / 3;
 			overflow: hidden;
+			border-radius: 8px;
 		}
 		.pj-thumb img {
 			width: 100%;
@@ -368,11 +377,11 @@ const imgPath = (file: string) => `${root}/images/projekte/${file}`;
 
 		@media (max-width: 760px) {
 			.pj-timeline { padding: 1.5rem 1rem 3rem; gap: 1rem; }
-			.pj-cover img { aspect-ratio: 4 / 3; }
-			.pj-overlay { padding: 1.25rem 1.25rem; }
-			.pj-title { font-size: 1.5rem; }
+			.pj-cover img { aspect-ratio: 16 / 10; max-height: none; }
+			.pj-overlay { padding: 1.1rem 1.2rem; }
+			.pj-title { font-size: 1.35rem; }
 			.pj-context { font-size: 0.88rem; }
-			.pj-gallery { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; padding: 1rem; }
+			.pj-gallery { grid-template-columns: 1fr; gap: 0.75rem; padding: 1rem; }
 			.pj-toggle { width: 2.2rem; height: 2.2rem; }
 			.pj-cta { padding: 3rem 1.5rem; }
 		}
