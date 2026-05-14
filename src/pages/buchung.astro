@@ -19,16 +19,16 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			<p class="bk-options-tip"><strong>Tipp:</strong> Je mehr Teilnehmer:innen, desto stimmiger das Erlebnis — Geodome-Bauen lebt von vielen Händen und Kooperation.</p>
 			<div class="bk-options">
 				<label class="bk-option">
-					<input type="radio" name="workshop" value="2-Stunden-Workshop (140 EUR)" checked />
+					<input type="radio" name="workshop" value="3-Stunden-Workshop (140 EUR)" checked />
 					<div class="bk-opt-card">
-						<div class="bk-opt-tag">2-Stunden-Workshop</div>
+						<div class="bk-opt-tag">3-Stunden-Workshop</div>
 						<div class="bk-opt-price"><strong>140 €</strong><span>zzgl. Anreise außerhalb Freiburgs (&gt;30 km)</span></div>
-						<p class="bk-opt-lead">Kompakte Einführung — du lernst das Prinzip der geodätischen Triangulation kennen, mit den eigenen Händen.</p>
+						<p class="bk-opt-lead">Ein praxisnaher Einstieg in den Geodome-Bau — verständlich, kreativ, gemeinschaftlich.</p>
 						<ul>
-							<li>Material wird gestellt</li>
-							<li>2–10 Personen — mehr Hände, intensiveres Erlebnis</li>
-							<li>Ca. 2 Stunden</li>
-							<li>Ideal als Schnupper-Erfahrung, Team-Event oder Schul-AG</li>
+							<li>Dauer: ca. 3 Stunden</li>
+							<li>Gruppengröße: flexibel</li>
+							<li>Material inklusive</li>
+							<li>Für Schul- und Projektgruppen, als Team-Event, auch für Einzelpersonen</li>
 						</ul>
 					</div>
 				</label>
@@ -38,27 +38,29 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 					<div class="bk-opt-card">
 						<div class="bk-opt-tag">Ganztägiger Workshop</div>
 						<div class="bk-opt-price"><strong>480 €</strong><span>zzgl. Material</span></div>
-						<p class="bk-opt-lead">Volle Erfahrung — gemeinsam bauen wir einen vollständigen Geodome, vom ersten Strich bis zur fertigen Kuppel.</p>
+						<p class="bk-opt-lead">Gemeinschaftlich. Kreativ. Nachhaltig.</p>
 						<ul>
-							<li>Material in Absprache: <em>hochwertig neu</em>, oder <em>Recycling- / Naturmaterialien</em></li>
-							<li>Ein ganzer Tag (~6–8 Stunden) — größere Gruppen schaffen mehr</li>
-							<li>Ihr nehmt eine fertige Konstruktion mit</li>
-							<li>Nachhaltig, sinnstiftend, verbindend</li>
+							<li>Dauer: ca. 6–8 Stunden</li>
+							<li>Gruppengröße: flexibel</li>
+							<li>Material: <em>recycelt</em> oder <em>neu</em></li>
+							<li>Fertiger Geodome zum Mitnehmen</li>
+							<li>Verbindet gemeinschaftliches Gestalten mit handwerklicher Erfahrung und spielerischer Strukturfindung.</li>
 						</ul>
 					</div>
 				</label>
 
-				<label class="bk-option bk-option-school">
-					<input type="radio" name="workshop" value="Schule / Paedagogische Einrichtung (Preis auf Anfrage)" />
+				<label class="bk-option bk-option-custom">
+					<input type="radio" name="workshop" value="Individuell angepasst (Preis auf Anfrage)" />
 					<div class="bk-opt-card">
-						<div class="bk-opt-tag">Schule · Pädagogische Einrichtung</div>
-						<div class="bk-opt-price"><strong>auf Anfrage</strong><span>angepasst an Kontext, Klassengröße, Budget</span></div>
-						<p class="bk-opt-lead">Geodome-Bau als Lernerfahrung — für Schulen, Kindergärten, Jugendgruppen, Hochschulen. Format und Preis stimmen wir individuell ab.</p>
+						<div class="bk-opt-tag">Individuell angepasst</div>
+						<div class="bk-opt-price"><strong>auf Anfrage</strong><span>Preis nach Format &amp; Material</span></div>
+						<p class="bk-opt-lead">Für pädagogische Einrichtungen, Vereine, Unternehmen, Festivals und weitere Gemeinschaftsprojekte. Vom ersten Entwurf bis zur fertigen Kuppel — ein Projekt, das verbindet.</p>
 						<ul>
-							<li>Format flexibel: 2 h, halber Tag, Tag oder Projektwoche</li>
-							<li>Klassen-/Gruppengröße offen — je größer, desto besser</li>
-							<li>Material auf Schul- oder Trägerbudget abgestimmt</li>
-							<li>Verbindet Mathematik, Statik, Handwerk, Teamarbeit</li>
+							<li>Vom kompakten Workshop bis hin zu Tagesformaten oder Projektwochen</li>
+							<li>Gruppengröße: flexibel</li>
+							<li>Material: <em>recycelt</em> oder <em>neu</em></li>
+							<li>Fertiger Geodome zum Mitnehmen</li>
+							<li>Verbindet gemeinschaftliches Gestalten mit handwerklicher Erfahrung und spielerischer Strukturfindung.</li>
 						</ul>
 					</div>
 				</label>
@@ -164,14 +166,14 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 	</form>
 
 	<script is:inline>
-		// Pre-select workshop type from URL: /buchung?type=2h | ganztaegig | schule | frage
+		// Pre-select workshop type from URL: /buchung?type=3h | ganztaegig | individuell | frage
 		(function () {
 			const params = new URLSearchParams(window.location.search);
 			const t = params.get("type");
 			const map = {
-				"2h": "2-Stunden-Workshop (140 EUR)",
+				"3h": "3-Stunden-Workshop (140 EUR)",
 				"ganztaegig": "Ganztaegiger Workshop (480 EUR)",
-				"schule": "Schule / Paedagogische Einrichtung (Preis auf Anfrage)",
+				"individuell": "Individuell angepasst (Preis auf Anfrage)",
 				"frage": "Frage / Allgemeine Anfrage",
 			};
 			if (t && map[t]) {
@@ -322,7 +324,7 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			gap: 1.25rem;
 			margin-top: 0.5rem;
 		}
-		.bk-option-school .bk-opt-card {
+		.bk-option-custom .bk-opt-card {
 			border-style: dashed;
 			background: var(--surface);
 		}
@@ -346,8 +348,8 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 		}
 		@media (max-width: 1100px) {
 			.bk-options { grid-template-columns: 1fr 1fr; }
-			.bk-option-school { grid-column: 1 / -1; }
-			.bk-option-school .bk-opt-card { border-style: dashed; }
+			.bk-option-custom { grid-column: 1 / -1; }
+			.bk-option-custom .bk-opt-card { border-style: dashed; }
 		}
 		.bk-option {
 			cursor: pointer;
