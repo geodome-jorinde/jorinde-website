@@ -1,19 +1,73 @@
 ---
 import VariantB from "../layouts/VariantB.astro";
+import InstagramIcon from "../components/InstagramIcon.astro";
+import BrandSeal from "../components/BrandSeal.astro";
 const root = import.meta.env.BASE_URL.replace(/\/$/, "");
+const instaUrl = "https://www.instagram.com/geodome.freiburg";
+
+// Latest Instagram post — update this URL when there's a new post.
+// Format: https://www.instagram.com/p/SHORTCODE/  (or /reel/SHORTCODE/ for reels)
+// Leave empty string to hide the live embed and fall back to the mock placeholder below.
+const latestPostUrl: string = "";
+
+// Mock placeholder shown while latestPostUrl is empty (before the IG account is active).
+const latestPostMock = {
+	img: "46",
+	imgAlt: "Wichteldome — Workshop im Stadtteil Vauban, Freiburg",
+	caption: "Sobald der erste Beitrag online ist, wird er hier automatisch eingebettet.",
+};
+
+const embedUrl = latestPostUrl
+	? `${latestPostUrl.replace(/\/$/, "")}/embed/captioned/`
+	: null;
+
+const testimonials = [
+	{
+		quote: [
+			"Unsere Zusammenarbeit mit Geodome Freiburg und die Auswirkungen dieser Zusammenarbeit waren wirklich faszinierend. Sie haben unserem Internationalen Kunst- und Kulturfestival 2023 einen besonderen Mehrwert verliehen. Vielen Dank an Jorinde für die Schritt-für-Schritt-Anleitungen und für die Geduld, die du während der gesamten zweitägigen Veranstaltung gezeigt hast.",
+		],
+		name: "Nelson",
+		org: "CaPoA Freiburg e.V.",
+	},
+	{
+		quote: [
+			"Mit viel Herz, Kreativität, Freude und Feingefühl bringt Jorinde Menschen unterschiedlicher Generationen und Kulturen zusammen, was eine lebendige Verbundenheit ermöglicht.",
+		],
+		name: "Giobla",
+		org: null,
+	},
+	{
+		quote: [
+			"Für den Garten unseres LebensART-Zentrums wollten wir gerne einen Geodome als Außenatelier für die künstlerische Arbeit mit den Kindern bauen, der später dann als Gewächshaus für eine kleine Permakultur dienen sollte.",
+			"Wir veranstalteten dazu einen Workshop mit Jorinde, die uns mit ihrem großen Know-How, handwerklichem Geschick und spielerischer Leichtigkeit für die durchaus anspruchsvollen Konstruktionen bis zur Fertigstellung eines 5-m-Durchmesser-Domes begleitete, den wir in einer kleinen Gruppe von nur 5 Menschen innerhalb eines Tages aufgebaut haben.",
+			"Besonders faszinierend fand ich, dass wir den Dome bis auf die Schrauben komplett aus recyceltem Material konstruiert haben, sodass keine hohen Materialkosten entstanden sind. Jorinde hatte alles perfekt vorbereitet und die Holzteile mit unterschiedlichen Farben gekennzeichnet, sodass der Zusammenbau immer übersichtlich blieb.",
+			"Das Ergebnis war ein begehbares Kunstwerk, das sich sehen lassen kann — praktisch und vielseitig in der Nutzung, dazu geometrisch und wunderschön ästhetisch wie die Blume des Lebens.",
+			"Vielen Dank an Jorinde für den wundervollen, kurzweiligen und lehrreichen Workshop 🙏 😊 💖 🦋 💫",
+		],
+		name: "Birgit Larissa Laux",
+		org: "LebensART-Zentrum, Dottingen",
+	},
+	{
+		quote: [
+			"Nicht nur bauen, sondern gestalten: Jorinde bringt Menschen, Ideen und Kreativität zusammen — und macht daraus Workshops voller Inspiration, woraus einzigartige Geodomes mit Charakter entstehen. ♻️",
+		],
+		name: "Therese",
+		org: null,
+	},
+];
 
 const workshops = [
 	{
 		num: "01",
 		title: "Konstruktion erleben",
-		text: "Aus einzelnen Streben entsteht Schritt für Schritt eine stabile Konstruktion — du sammelst praktische Erfahrungen mit Material, Statik und handwerklichem Können.",
+		text: "Aus einzelnen Streben entsteht Schritt für Schritt eine stabile Konstruktion — Du verbindest Materialerfahrung, statisches Verständnis und handwerkliche Praxis.",
 		img: `${root}/images/preview/konstruktion-1.webp`,
 		href: `${root}/konstruktion-erleben`,
 	},
 	{
 		num: "02",
 		title: "Statik & Raumwirkung",
-		text: "Aus Leisten, Schrauben und Winkeln entsteht ein selber gebauter Raum. Die Dreiecksstruktur verteilt Kräfte gleichmäßig — Stabilität bei minimalem Materialeinsatz.",
+		text: "Aus Leisten und Schrauben entsteht ein selbstgebauter Raum. Die Dreiecksstruktur ermöglicht eine hohe Stabilität mit minimalem Materialeinsatz.",
 		img: `${root}/images/preview/statik-1.webp`,
 		href: `${root}/statik`,
 	},
@@ -30,15 +84,19 @@ const workshops = [
 	<header class="hero">
 		<div class="hero-copy">
 			<div class="kicker">Workshops · Freiburg</div>
-			<h1>Die Faszination von <strong>Geodomen erleben.</strong></h1>
-			<p class="lede">Mit handwerklicher Erfahrung und künstlerischem Blick lade ich ein, Geodome praktisch zu erleben. In meinen Workshops bauen wir gemeinsam und in wenigen Stunden eine stabile Kuppel — Grundlage für eure eigenen Ideen und Projekte.</p>
+			<h1>Geodome: <strong>Form und Raum im Einklang.</strong></h1>
+			<p class="lede">Zwischen Handwerk und Kunst entsteht ein Raum, in dem Geodome erfahrbar werden. In meinen Workshops bauen wir gemeinsam und in wenigen Stunden eine stabile Kuppel — Grundlage für eure eigenen Ideen und Projekte.</p>
 			<div class="cta-row">
 				<a class="btn primary" href={`${root}/buchung`}>Workshop buchen</a>
 				<a class="btn" href="#workshops">Workshops entdecken</a>
 			</div>
+			<a class="hero-social" href={instaUrl} target="_blank" rel="noopener" aria-label="Geodome Freiburg auf Instagram">
+				<InstagramIcon size={26} />
+				<span>Folge uns auf Instagram <strong>@geodome.freiburg</strong></span>
+			</a>
 		</div>
 		<div class="hero-visual">
-			<img src={`${root}/images/preview/hero-bauen-gruppe.webp`} alt="Gruppe baut gemeinsam einen Geodome im Garten" fetchpriority="high" decoding="async" />
+			<img src={`${root}/images/preview/hero-landing.webp`} alt="Gruppe im fertigen Geodome — Workshops für alle Altersgruppen" fetchpriority="high" decoding="async" />
 			<div class="ticks"></div>
 		</div>
 	</header>
@@ -46,11 +104,6 @@ const workshops = [
 	<section class="workshops" id="workshops">
 		<div class="section-head">
 			<h2>Was im Workshop entsteht.</h2>
-			<div class="meta">
-				<span><strong>Material</strong> Holz · Schrauben · Winkel</span>
-				<span><strong>Dauer</strong> 4–8 Stunden</span>
-				<span><strong>Ort</strong> Freiburg & on-site</span>
-			</div>
 		</div>
 		<div class="workshop-grid">
 			{workshops.map((w) => (
@@ -65,6 +118,55 @@ const workshops = [
 		</div>
 	</section>
 
+	<section class="insta-preview" id="aktuell" aria-label="Aktuell auf Instagram">
+		<div class="insta-head">
+			<div class="kicker">Aktuell</div>
+			<h2>Auf <strong>Instagram.</strong></h2>
+			<p class="insta-sub">Workshops, Projekte und Eindrücke — folge <a href={instaUrl} target="_blank" rel="noopener"><strong>@geodome.freiburg</strong></a>, um keinen Beitrag zu verpassen.</p>
+		</div>
+
+		{embedUrl ? (
+			<div class="insta-embed">
+				<iframe
+					src={embedUrl}
+					width="100%"
+					height="720"
+					frameborder="0"
+					scrolling="no"
+					allowtransparency="true"
+					loading="lazy"
+					title="Letzter Instagram-Beitrag von @geodome.freiburg"
+				></iframe>
+			</div>
+		) : (
+			<a class="insta-card" href={instaUrl} target="_blank" rel="noopener" aria-label="Geodome Freiburg auf Instagram öffnen">
+				<header class="insta-card-top">
+					<span class="insta-avatar" aria-hidden="true">
+						<BrandSeal size={36} variant="single" font="fraunces" flora={false} />
+					</span>
+					<span class="insta-handle">geodome.freiburg</span>
+					<span class="insta-card-glyph" aria-hidden="true">
+						<InstagramIcon size={22} strokeWidth={1.6} />
+					</span>
+				</header>
+				<div class="insta-card-img">
+					<img
+						src={`${root}/images/projekte/${latestPostMock.img}-960.webp`}
+						srcset={`${root}/images/projekte/${latestPostMock.img}-480.webp 480w, ${root}/images/projekte/${latestPostMock.img}-960.webp 960w, ${root}/images/projekte/${latestPostMock.img}-1920.webp 1920w`}
+						sizes="(max-width: 768px) 100vw, 540px"
+						alt={latestPostMock.imgAlt}
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+				<footer class="insta-card-foot">
+					<p class="insta-card-caption">{latestPostMock.caption}</p>
+					<span class="insta-card-cta">Auf Instagram ansehen →</span>
+				</footer>
+			</a>
+		)}
+	</section>
+
 	<section class="principle" id="prinzip">
 		<div class="principle-img">
 			<img src={`${root}/images/preview/principle-dome-lake.webp`} alt="Geodome am See — Triangulation als Rahmen, Blick auf Wasser und Himmel" loading="lazy" decoding="async" />
@@ -72,10 +174,115 @@ const workshops = [
 		<div>
 			<div class="kicker">Prinzip</div>
 			<h2>Geborgenheit und <strong>Weite zugleich.</strong></h2>
-			<p>Die besondere Dreiecksstruktur verteilt Kräfte gleichmäßig über die gesamte Oberfläche — ein Prinzip, das Geodome große Stabilität bei geringem Materialeinsatz verleiht.</p>
 			<p>Die ruhige, lichtdurchflutete und zugleich abgeschirmte Atmosphäre schafft gute Bedingungen für Erholung und sorgt für ein Gefühl von Geborgenheit und Weite zugleich.</p>
 		</div>
 	</section>
+
+	<section class="testimonials" id="stimmen" aria-label="Kundenstimmen">
+		<div class="testimonials-head">
+			<div class="kicker">Stimmen</div>
+			<h2>Worüber Teilnehmer:innen <strong>sprechen.</strong></h2>
+		</div>
+		<div class="testimonial-track" id="testimonial-track">
+			{testimonials.map((t, i) => {
+				const isLong = t.quote.length > 1 || t.quote[0].length > 230;
+				return (
+					<article class="testimonial-card" data-i={i}>
+						<blockquote class="testimonial-quote" data-clamp={isLong ? "true" : null}>
+							<p>{t.quote[0]}</p>
+						</blockquote>
+						{isLong && (
+							<button type="button" class="testimonial-more" data-modal={`testimonial-modal-${i}`}>
+								Mehr lesen →
+							</button>
+						)}
+						<footer class="testimonial-attr">
+							<span class="testimonial-name">{t.name}</span>
+							{t.org && <span class="testimonial-org">{t.org}</span>}
+						</footer>
+					</article>
+				);
+			})}
+		</div>
+		<div class="testimonial-dots" role="tablist" aria-label="Stimme auswählen">
+			{testimonials.map((_, i) => (
+				<button type="button" class="testimonial-dot" data-i={i} aria-label={`Stimme ${i + 1} anzeigen`}></button>
+			))}
+		</div>
+
+		{testimonials.map((t, i) => {
+			const isLong = t.quote.length > 1 || t.quote[0].length > 230;
+			if (!isLong) return null;
+			return (
+				<dialog class="testimonial-modal" id={`testimonial-modal-${i}`} aria-label={`Vollständige Stimme von ${t.name}`}>
+					<div class="testimonial-modal-inner">
+						<button type="button" class="testimonial-modal-close" aria-label="Schließen">×</button>
+						<blockquote class="testimonial-modal-quote">
+							{t.quote.map((para) => <p>{para}</p>)}
+						</blockquote>
+						<footer class="testimonial-modal-attr">
+							<span class="testimonial-name">{t.name}</span>
+							{t.org && <span class="testimonial-org">{t.org}</span>}
+						</footer>
+					</div>
+				</dialog>
+			);
+		})}
+	</section>
+
+	<script is:inline>
+		(function () {
+			const track = document.getElementById("testimonial-track");
+			if (!track) return;
+			const cards = Array.from(track.querySelectorAll(".testimonial-card"));
+			const dots = Array.from(document.querySelectorAll(".testimonial-dot"));
+			if (!cards.length || !dots.length) return;
+
+			function activate(i) {
+				dots.forEach((d, k) => d.classList.toggle("is-active", k === i));
+			}
+			activate(0);
+
+			const observer = new IntersectionObserver(
+				function (entries) {
+					entries.forEach(function (entry) {
+						if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
+							activate(Number(entry.target.dataset.i));
+						}
+					});
+				},
+				{ root: track, threshold: 0.55 },
+			);
+			cards.forEach(function (c) { observer.observe(c); });
+
+			dots.forEach(function (dot, i) {
+				dot.addEventListener("click", function () {
+					cards[i].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+				});
+			});
+
+			// Modal: "Mehr lesen" opens full quote.
+			document.querySelectorAll(".testimonial-more").forEach(function (btn) {
+				btn.addEventListener("click", function () {
+					var id = btn.getAttribute("data-modal");
+					var modal = id && document.getElementById(id);
+					if (modal && typeof modal.showModal === "function") modal.showModal();
+				});
+			});
+			document.querySelectorAll(".testimonial-modal-close").forEach(function (btn) {
+				btn.addEventListener("click", function () {
+					var modal = btn.closest("dialog");
+					if (modal && typeof modal.close === "function") modal.close();
+				});
+			});
+			// Click backdrop (outside inner) to close.
+			document.querySelectorAll(".testimonial-modal").forEach(function (modal) {
+				modal.addEventListener("click", function (e) {
+					if (e.target === modal) modal.close();
+				});
+			});
+		})();
+	</script>
 
 	<style>
 		.hero {
@@ -95,6 +302,19 @@ const workshops = [
 		}
 		.cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
 
+		.hero-social {
+			display: inline-flex; align-items: center; gap: 0.75rem;
+			margin-top: 1.5rem;
+			padding: 0.65rem 1rem;
+			background: var(--surface);
+			border: 1px solid var(--line);
+			color: var(--green-deep);
+			font-size: 0.95rem; font-weight: 500;
+			transition: background 150ms, color 150ms, transform 150ms;
+		}
+		.hero-social:hover { background: var(--green-deep); color: var(--bg); transform: translateY(-2px); }
+		.hero-social strong { font-weight: 700; }
+
 		.hero-visual { position: relative; aspect-ratio: 4 / 5; max-height: 560px; overflow: hidden; background: var(--bg); }
 		.hero-visual img { width: 100%; height: 100%; object-fit: cover; }
 		.hero-visual .ticks { position: absolute; inset: 0; pointer-events: none; }
@@ -110,18 +330,13 @@ const workshops = [
 
 		.workshops { padding: 6rem 3rem; border-bottom: 1px solid var(--line); }
 		.section-head {
-			display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-			margin-bottom: 4rem; align-items: end;
+			margin-bottom: 4rem;
+			max-width: 980px;
 		}
 		.section-head h2 {
 			font-size: clamp(1.75rem, 3.5vw, 2.75rem);
 			font-weight: 300;
 		}
-		.section-head .meta {
-			font-size: 0.85rem; color: var(--muted);
-			display: flex; flex-direction: column; gap: 0.25rem;
-		}
-		.section-head .meta strong { color: var(--ink); font-weight: 600; }
 
 		.workshop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
 		.workshop-grid > .workshop:nth-child(2) { transform: translateY(2rem); }
@@ -165,13 +380,251 @@ const workshops = [
 		}
 		.principle p { color: var(--muted); max-width: 30em; margin-bottom: 1rem; font-size: 1rem; }
 
+		.testimonials {
+			padding: 5rem 3rem 4rem;
+			background: var(--surface);
+			border-top: 1px solid var(--line);
+			border-bottom: 1px solid var(--line);
+		}
+		.testimonials-head { margin-bottom: 2.5rem; max-width: 980px; }
+		.testimonials-head h2 {
+			font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+			font-weight: 300;
+		}
+		.testimonial-track {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: 68%;
+			gap: 1.5rem;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			scrollbar-width: none;
+			padding-bottom: 0.5rem;
+			scroll-padding: 0 1.5rem;
+		}
+		.testimonial-track::-webkit-scrollbar { display: none; }
+		.testimonial-card {
+			scroll-snap-align: center;
+			background: var(--bg);
+			padding: 2rem 2rem 1.75rem;
+			display: flex; flex-direction: column;
+			min-height: 260px;
+		}
+		.testimonial-quote {
+			font-family: "Fraunces Variable", "Fraunces", Georgia, serif;
+			font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 144;
+			font-style: italic;
+			font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+			line-height: 1.6;
+			color: var(--ink);
+			margin: 0;
+			flex: 1;
+		}
+		.testimonial-quote p { margin: 0; }
+		.testimonial-quote[data-clamp] {
+			position: relative;
+			display: -webkit-box;
+			-webkit-line-clamp: 5;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.testimonial-quote[data-clamp]::after {
+			content: "";
+			position: absolute;
+			left: 0; right: 0; bottom: 0;
+			height: 2.5em;
+			background: linear-gradient(180deg, rgba(238,241,230,0) 0%, var(--bg) 90%);
+			pointer-events: none;
+		}
+		.testimonial-more {
+			align-self: flex-start;
+			margin-top: 0.85rem;
+			padding: 0;
+			background: transparent;
+			border: none;
+			font: inherit;
+			font-size: 0.88rem;
+			font-weight: 600;
+			letter-spacing: 0.02em;
+			color: var(--green-deep);
+			cursor: pointer;
+		}
+		.testimonial-more:hover { text-decoration: underline; }
+		.testimonial-attr {
+			margin-top: 1.75rem;
+			padding-top: 1rem;
+			border-top: 1px solid rgba(26,26,26,0.12);
+			display: flex; flex-direction: column; gap: 0.2rem;
+		}
+		.testimonial-name { font-size: 0.95rem; font-weight: 700; color: var(--green-deep); }
+		.testimonial-org { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em; }
+
+		.testimonial-dots {
+			display: flex; gap: 0.7rem; justify-content: center;
+			margin-top: 1.75rem;
+		}
+		.testimonial-dot {
+			width: 10px; height: 10px;
+			background: rgba(26,26,26,0.18);
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			padding: 0;
+			transition: background 150ms, transform 150ms;
+		}
+		.testimonial-dot:hover { background: rgba(26,26,26,0.4); }
+		.testimonial-dot.is-active { background: var(--green-deep); transform: scale(1.25); }
+
+		.testimonial-modal {
+			position: fixed;
+			inset: 0;
+			margin: auto;
+			padding: 0;
+			border: 1px solid var(--line);
+			background: var(--bg);
+			color: var(--ink);
+			max-width: 640px;
+			width: calc(100vw - 2rem);
+			max-height: calc(100vh - 4rem);
+			overflow: visible;
+		}
+		.testimonial-modal::backdrop {
+			background: rgba(26,26,26,0.55);
+			backdrop-filter: blur(2px);
+		}
+		.testimonial-modal-inner {
+			position: relative;
+			padding: 2.5rem 2.5rem 2rem;
+			overflow-y: auto;
+			max-height: calc(100vh - 4rem);
+		}
+		.testimonial-modal-close {
+			position: absolute;
+			top: 0.5rem; right: 0.5rem;
+			width: 2.5rem; height: 2.5rem;
+			background: transparent; border: none;
+			font-size: 1.6rem; line-height: 1;
+			color: var(--ink); cursor: pointer;
+			transition: color 150ms;
+		}
+		.testimonial-modal-close:hover { color: var(--green-deep); }
+		.testimonial-modal-quote {
+			font-family: "Fraunces Variable", "Fraunces", Georgia, serif;
+			font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 144;
+			font-style: italic;
+			font-size: 1.05rem; line-height: 1.7;
+			color: var(--ink); margin: 0;
+		}
+		.testimonial-modal-quote p { margin-bottom: 1rem; }
+		.testimonial-modal-quote p:last-child { margin-bottom: 0; }
+		.testimonial-modal-attr {
+			margin-top: 1.5rem; padding-top: 1rem;
+			border-top: 1px solid rgba(26,26,26,0.12);
+			display: flex; flex-direction: column; gap: 0.2rem;
+		}
+		.testimonial-modal-attr .testimonial-name { font-size: 0.95rem; font-weight: 700; color: var(--green-deep); }
+		.testimonial-modal-attr .testimonial-org { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em; }
+
+		/* Instagram latest-post preview */
+		.insta-preview {
+			padding: 5rem 3rem 4rem;
+			border-top: 1px solid var(--line);
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
+			align-items: center;
+		}
+		.insta-head { max-width: 28em; }
+		.insta-head h2 {
+			font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+			font-weight: 300;
+			margin-bottom: 1rem;
+		}
+		.insta-sub {
+			font-size: 1rem; line-height: 1.6;
+			color: var(--muted);
+		}
+		.insta-sub a { color: var(--green-deep); border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+		.insta-sub a:hover { color: var(--ink); }
+
+		.insta-card {
+			display: flex; flex-direction: column;
+			width: 100%; max-width: 480px;
+			justify-self: center;
+			background: var(--bg);
+			border: 1px solid var(--line);
+			border-radius: 6px;
+			overflow: hidden;
+			color: inherit;
+			transition: transform 200ms, box-shadow 200ms;
+		}
+		.insta-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(45,74,43,0.15); }
+
+		.insta-card-top {
+			display: flex; align-items: center; gap: 0.75rem;
+			padding: 0.85rem 1rem;
+			border-bottom: 1px solid rgba(26,26,26,0.08);
+		}
+		.insta-avatar {
+			width: 36px; height: 36px;
+			color: var(--green-deep);
+			border-radius: 50%;
+			display: inline-flex; align-items: center; justify-content: center;
+			flex-shrink: 0;
+		}
+		.insta-handle {
+			font-size: 0.92rem; font-weight: 700;
+			color: var(--ink);
+			letter-spacing: -0.005em;
+			flex: 1;
+		}
+		.insta-card-glyph { color: var(--green-deep); display: inline-flex; }
+
+		.insta-card-img {
+			aspect-ratio: 1 / 1;
+			overflow: hidden;
+			background: var(--surface);
+		}
+		.insta-card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+		.insta-card-foot {
+			padding: 1rem 1.1rem 1.1rem;
+			display: flex; flex-direction: column; gap: 0.65rem;
+		}
+		.insta-card-caption {
+			font-size: 0.88rem; line-height: 1.5;
+			color: var(--muted); margin: 0;
+		}
+		.insta-card-cta {
+			font-size: 0.85rem; font-weight: 600;
+			color: var(--green-deep);
+			letter-spacing: 0.02em;
+		}
+
+		/* Live Instagram embed (when latestPostUrl is set) */
+		.insta-embed {
+			width: 100%;
+			max-width: 480px;
+			justify-self: center;
+			border-radius: 6px;
+			overflow: hidden;
+			background: var(--bg);
+			border: 1px solid var(--line);
+		}
+		.insta-embed iframe { display: block; width: 100%; border: none; background: var(--bg); }
+
 		@media (max-width: 900px) {
 			.hero, .principle { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
 			.workshops { padding: 3rem 1.5rem; }
-			.section-head { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+			.section-head { margin-bottom: 2rem; }
 			.workshop-grid { grid-template-columns: 1fr; }
 			.workshop-grid > .workshop:nth-child(n) { transform: none; }
 			.workshop-grid > .workshop:nth-child(2):hover { transform: translateY(-4px); }
+			.testimonials { padding: 3rem 1.5rem; }
+			.testimonial-track { grid-auto-columns: 88%; gap: 1rem; }
+			.testimonial-card { padding: 1.75rem 1.5rem; min-height: 0; }
+			.insta-preview { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+			.insta-card, .insta-embed { max-width: 100%; }
 		}
 	</style>
 </VariantB>

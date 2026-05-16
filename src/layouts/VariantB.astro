@@ -1,5 +1,6 @@
 ---
 import BrandSeal from "../components/BrandSeal.astro";
+import InstagramIcon from "../components/InstagramIcon.astro";
 import "@fontsource-variable/manrope";
 
 interface Props {
@@ -222,6 +223,8 @@ const nav = [
 			.foot-links { display: flex; gap: 2rem; }
 			.foot-bottom a { color: rgba(238,241,230,0.6); transition: color 150ms; font-weight: 300; }
 			.foot-bottom a:hover { color: var(--bg); }
+			.foot-social { display: inline-flex; align-items: center; margin-left: 0.5rem; color: rgba(238,241,230,0.85); }
+			.foot-social:hover { color: var(--bg); }
 
 			/* SHARED PAGE-HEADER for inner pages */
 			.page-header {
@@ -338,6 +341,9 @@ const nav = [
 					<a href={`${root}/impressum`}>Impressum</a>
 					<a href={`${root}/datenschutz`}>Datenschutz</a>
 					<a href={`${root}/kontakt`}>Kontakt</a>
+					<a class="foot-social" href="https://www.instagram.com/geodome.freiburg" target="_blank" rel="noopener" aria-label="Geodome Freiburg auf Instagram" title="Instagram">
+						<InstagramIcon size={20} />
+					</a>
 				</div>
 			</div>
 		</footer>

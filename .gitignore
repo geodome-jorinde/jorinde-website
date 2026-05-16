@@ -23,5 +23,10 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# Source images (working folder, not deployed — copy curated subset to public/images/)
+# Source images (working folders, not deployed — copy curated subset to public/images/)
 Bilder_Website/
+Geodome_Freiburg/
+Geodome_Freiburg_Bilder/
+
+# Claude Code local state
+.claude/

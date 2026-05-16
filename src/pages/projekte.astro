@@ -3,22 +3,14 @@ import VariantB from "../layouts/VariantB.astro";
 const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // Reverse-chronological — newest first.
-// Each project: cover photo + overlaid title; click to expand for the rest.
+// Photo basenames map to responsive WebP set: <base>-{480,960,1920}.webp.
 const projekte = [
-	{
-		slug: "klimadome",
-		title: "Klimadome",
-		year: "2025",
-		context: "Beim Klimacamp mit den »Students For Future« auf dem Platz der alten Synagoge, Freiburg.",
-		cover: "52.webp",
-		gallery: ["53.webp", "54.webp"],
-	},
 	{
 		slug: "maeusedome",
 		title: "Mäusedome",
 		year: "2025",
 		context: "Mit Jugendlichen der Gruppe »Wühlmäuse« — NABU Seeheim-Jugenheim.",
-		cover: "51.webp",
+		cover: "51",
 		gallery: [],
 	},
 	{
@@ -26,124 +18,142 @@ const projekte = [
 		title: "Wichteldome",
 		year: "2025",
 		context: "Weihnachten im Stadtteil Vauban, Freiburg.",
-		cover: "46.webp",
-		gallery: ["47.webp", "48.webp", "49.webp", "50.webp"],
+		cover: "46",
+		gallery: ["47", "48", "49", "50"],
+	},
+	{
+		slug: "klimadome",
+		title: "Klimadome",
+		year: "2024",
+		context: "Beim Klimacamp mit den »Students For Future« auf dem Platz der alten Synagoge, Freiburg.",
+		cover: "52",
+		gallery: ["53", "54"],
 	},
 	{
 		slug: "lebensdome",
 		title: "Lebensdome",
 		year: "2024",
 		context: "Im LebensART-Zentrum in Dottingen.",
-		cover: "45.webp",
-		gallery: ["45a.webp", "45b.webp", "45c.webp"],
+		cover: "45",
+		gallery: ["45a", "45b", "45c"],
 	},
 	{
 		slug: "werkstattdome",
 		title: "Werkstattdome",
 		year: "2024",
 		context: "Workshop mit der offenen Werkstatt FREILab Freiburg e.V.",
-		cover: "43.webp",
-		gallery: ["44.webp"],
+		cover: "43",
+		gallery: ["44"],
 	},
 	{
 		slug: "gaertnerinnendome",
 		title: "Gärtner*Innendome",
 		year: "2024",
 		context: "Mit dem Verein Weltacker e.V., Freiburg.",
-		cover: "39.webp",
-		gallery: ["40.webp", "41.webp", "42.webp"],
+		cover: "39",
+		gallery: ["40", "41", "42"],
 	},
 	{
 		slug: "international-domes",
 		title: "International Domes",
 		year: "2024",
 		context: "Auf dem internationalen Kunst- und Kulturfestival, Freiburg.",
-		cover: "37.webp",
-		gallery: ["38.webp"],
+		cover: "37",
+		gallery: ["38"],
 	},
 	{
 		slug: "bergfritzendome",
 		title: "Bergfritzendome",
 		year: "2023",
 		context: "Workshop mit dem Wohnprojekt Bergfritzenhof im Schwarzwald.",
-		cover: "33.webp",
-		gallery: ["34.webp", "35.webp", "36.webp"],
+		cover: "33",
+		gallery: ["34", "35", "36"],
 	},
 	{
 		slug: "oasendome",
 		title: "Oasendome",
 		year: "2023",
 		context: "Wohngenossenschaft Genova, Freiburg.",
-		cover: "29.webp",
-		gallery: ["30.webp", "31.webp", "32.webp"],
+		cover: "29e",
+		gallery: ["29f", "29g", "29h", "30", "31", "32", "32e"],
+	},
+	{
+		slug: "aestedome",
+		title: "Ästedome",
+		year: "2021",
+		context: "Familienprojekt im Odenwald.",
+		cover: "32b",
+		gallery: ["32c", "32d", "32f"],
 	},
 	{
 		slug: "piratendome",
 		title: "Piratendome",
 		year: "2022",
 		context: "Pfingstcamp mit den Stadtpiraten Freiburg e.V., Freiburg.",
-		cover: "29a.webp",
-		gallery: ["29b.webp", "29c.webp", "29d.webp"],
+		cover: "29a",
+		gallery: ["29b", "29c", "29d"],
 	},
 	{
 		slug: "nord-sued-dome",
 		title: "Nord-Süd-Dome",
 		year: "2022",
 		context: "Auf der Landesgartenschau als Veranstaltungsort, mit dem Süd-Nord-Forum Freiburg e.V. in Neuenburg am Rhein.",
-		cover: "27a.webp",
-		gallery: ["27.webp", "28.webp"],
+		cover: "27a",
+		gallery: ["27", "28"],
 	},
 	{
 		slug: "brueckenbauerinnendome",
 		title: "Brückenbauer*Innendome",
 		year: "2022",
 		context: "Workshop im Haus des Engagements, Freiburg.",
-		cover: "21.webp",
-		gallery: ["22.webp", "23.webp", "24.webp", "25.webp", "26.webp"],
+		cover: "21",
+		gallery: ["22", "23", "24", "25", "26"],
 	},
 	{
 		slug: "bambusdome",
 		title: "Bambusdome am See",
 		year: "2022",
 		context: "Familienprojekt.",
-		cover: "19.webp",
-		gallery: ["20.webp"],
+		cover: "19",
+		gallery: ["19a", "19b", "20", "20a"],
 	},
 	{
 		slug: "kinderdome",
 		title: "Kinderdome",
 		year: "2021",
 		context: "Beim Kinderkunstdorf, Freiburg.",
-		cover: "11.webp",
-		gallery: ["12.webp", "13.webp", "14.webp", "15.webp", "16.webp"],
+		cover: "11",
+		gallery: ["12", "13", "14", "15", "16"],
 	},
 	{
 		slug: "rettungsdome",
 		title: "Rettungsdome",
 		year: "2021",
 		context: "Webinar beim Foodsharing-Festival.",
-		cover: "4.webp",
-		gallery: [],
+		cover: "4",
+		gallery: ["4a", "4b"],
 	},
 	{
 		slug: "orientdome",
 		title: "Orientdome",
 		year: "2021",
 		context: "Familienprojekt im Odenwald.",
-		cover: "3.webp",
-		gallery: [],
+		cover: "3",
+		gallery: ["3a", "3b", "3c"],
 	},
 	{
 		slug: "andendome",
 		title: "Andendome",
 		year: "2021",
 		context: "Familienprojekt im Odenwald.",
-		cover: "1.webp",
-		gallery: ["2.webp"],
+		cover: "1",
+		gallery: ["2", "2a", "2b", "2c"],
 	},
 ];
 
-const imgPath = (file: string) => `${root}/images/projekte/${file}`;
+const imgUrl = (base: string, sz: number) => `${root}/images/projekte/${base}-${sz}.webp`;
+const imgSrcset = (base: string) =>
+	`${imgUrl(base, 480)} 480w, ${imgUrl(base, 960)} 960w, ${imgUrl(base, 1920)} 1920w`;
 ---
 <VariantB title="Abgeschlossene Projekte — Geodome Freiburg" activeNav="projekte">
 	<header class="page-header">
@@ -156,7 +166,14 @@ const imgPath = (file: string) => `${root}/images/projekte/${file}`;
 		{projekte.map((p) => (
 			<article class="pj-item" data-slug={p.slug}>
 				<button type="button" class="pj-cover" aria-expanded="false" aria-controls={`pj-panel-${p.slug}`}>
-					<img src={imgPath(p.cover)} alt={p.title} loading="lazy" decoding="async" />
+					<img
+						src={imgUrl(p.cover, 1920)}
+						srcset={imgSrcset(p.cover)}
+						sizes="(max-width: 768px) 100vw, 1200px"
+						alt={p.title}
+						loading="lazy"
+						decoding="async"
+					/>
 					<div class="pj-overlay">
 						<div class="pj-overlay-inner">
 							<span class="pj-year">{p.year}</span>
@@ -174,7 +191,14 @@ const imgPath = (file: string) => `${root}/images/projekte/${file}`;
 							<div class="pj-gallery">
 								{p.gallery.map((g) => (
 									<figure class="pj-thumb">
-										<img src={imgPath(g)} alt={`${p.title} — weitere Ansicht`} loading="lazy" decoding="async" />
+										<img
+											src={imgUrl(g, 960)}
+											srcset={imgSrcset(g)}
+											sizes="(max-width: 768px) 100vw, (max-width: 1400px) 50vw, 480px"
+											alt={`${p.title} — weitere Ansicht`}
+											loading="lazy"
+											decoding="async"
+										/>
 									</figure>
 								))}
 							</div>
