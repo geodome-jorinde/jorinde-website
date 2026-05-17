@@ -183,13 +183,13 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 			</label>
 			<label class="bk-consent bk-consent-required">
 				<input type="checkbox" name="consent" required />
-				<span>Ich willige ein, dass meine angegebenen Daten (Name, E-Mail, Telefon, Anfrage-Details) zur Bearbeitung meiner Anfrage verarbeitet werden. Die Daten werden nicht an Dritte weitergegeben und spätestens 6 Monate nach Abschluss der Anfrage gelöscht. Ich kann meine Einwilligung jederzeit per E-Mail an <a href="mailto:info@geodome-freiburg.de">info@geodome-freiburg.de</a> widerrufen. Mehr in der <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>. <strong>(Pflichtfeld)</strong></span>
+				<span>Ich habe die <a href={`${root}/datenschutz`}>Datenschutzerklärung</a>, die <a href={`${root}/agb`}>AGB</a> und die <a href={`${root}/widerruf`}>Widerrufsbelehrung</a> zur Kenntnis genommen. <strong>(Pflichtfeld)</strong></span>
 			</label>
 		</div>
 
 		<div class="bk-submit">
 			<button type="submit" class="btn primary bk-submit-btn">Anfrage absenden</button>
-			<p class="bk-form-hint">Alle Felder sind freiwillig — bis auf die Einwilligung zur Datenverarbeitung. Öffnet dein E-Mail-Programm — fülle einfach das aus, was du teilen möchtest. Es ist eine <em>Anfrage</em> — die Buchung wird erst nach unserer Rücksprache verbindlich. Falls du keinen E-Mail-Client hast, schreib direkt an <a href="mailto:info@geodome-freiburg.de">info@geodome-freiburg.de</a>.</p>
+			<p class="bk-form-hint">Alle Felder sind freiwillig — bis auf die Bestätigung der Kenntnisnahme von AGB, Widerrufsbelehrung und Datenschutz. Öffnet dein E-Mail-Programm — fülle einfach das aus, was du teilen möchtest. Es ist eine <em>Anfrage</em> — die Buchung wird erst nach unserer Rücksprache verbindlich. Falls du keinen E-Mail-Client hast, schreib direkt an <a href="mailto:info@geodome-freiburg.de">info@geodome-freiburg.de</a>.</p>
 		</div>
 	</form>
 
@@ -292,7 +292,7 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 						(get("msg") || "—"),
 						"",
 						"Newsletter:  " + newsletter,
-						"Einwilligung: " + consent,
+						"Kenntnisnahme: " + consent,
 					].join("\n")
 					: [
 						"Workshop-Buchungsanfrage von " + nameOrAnon,
@@ -312,7 +312,7 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, "");
 						(get("msg") || "—"),
 						"",
 						"Newsletter:  " + newsletter,
-						"Einwilligung: " + consent,
+						"Kenntnisnahme: " + consent,
 					].join("\n");
 
 				const subjectPrefix = isFrage ? "Anfrage von " : "Workshop-Buchungsanfrage von ";
